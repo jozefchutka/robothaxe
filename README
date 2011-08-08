@@ -1,0 +1,5 @@
+Please note this is a work in progress release! It also requires some soon to be released projects (Raxe, RaxeTasks) as well as MassiveUI. I plan to extract the MassiveUI dependency into an interface to fix this.
+
+All munit tests are currently passing under both AS3 and JS, although a number are currently commented out. I'm working my way through them.
+
+Stay tuned.
