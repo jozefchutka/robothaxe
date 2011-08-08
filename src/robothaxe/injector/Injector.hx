@@ -199,7 +199,7 @@ class Injector implements IInjector
 		
 		for (field in Reflect.fields(fieldsMeta))
 		{
-			var fieldMeta = Reflect.field(fieldsMeta, field);
+			var fieldMeta:Dynamic = Reflect.field(fieldsMeta, field);
 
 			var inject = Reflect.hasField(fieldMeta, "inject");
 			var post = Reflect.hasField(fieldMeta, "post");
@@ -256,7 +256,7 @@ class Injector implements IInjector
 	function getConfigurationForRequest(forClass:Class<Dynamic>, named:String, ?traverseAncestors:Bool=true):InjectionConfig
 	{
 		var requestName = getClassName(forClass) + '#' + named;
-
+		
 		if(!m_mappings.exists(requestName))
 		{
 			if (traverseAncestors && parentInjector != null && parentInjector.hasMapping(forClass, named))

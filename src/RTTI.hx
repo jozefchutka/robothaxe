@@ -69,22 +69,25 @@ class RTTI
 			case FVar(read, write):
 			switch (field.type)
 			{
+				// might need to recurse into typedefs here, incase people are silly - dp
+				case TType(t, params):
+				var def = t.get();
+				switch (def.type)
+				{
+					case TInst(t, params):
+					processProperty(ref, field, t.get(), params);
+					default:
+				}
+
 				case TInst(t, params):
-					var type = t.get();
-					var pack = type.pack;
-					pack.push(type.name);
-					var typeName = pack.join(".");
-					field.meta.add("type", [Context.parse('"' + typeName + '"', ref.pos)], ref.pos);
+				processProperty(ref, field, t.get(), params);
+				default:
+			}
 
-					switch (write)
-					{
-						case AccCall(m):
-						field.meta.add("setter", [Context.parse('"' + m + '"', ref.pos)], ref.pos);
-
-						default:
-					}
-
-					field.meta.add("name", [Context.parse('"' + field.name + '"', ref.pos)], ref.pos);
+			switch (write)
+			{
+				case AccCall(m):
+				field.meta.add("setter", [Context.parse('"' + m + '"', ref.pos)], ref.pos);
 				default:
 			}
 
@@ -118,5 +121,13 @@ class RTTI
 		}
 	}
 
+	static function processProperty(ref:ClassType, field:ClassField, type:ClassType, params)
+	{
+		var pack = type.pack;
+		pack.push(type.name);
+		
+		field.meta.add("type", [Context.parse('"' + pack.join(".") + '"', ref.pos)], ref.pos);
+		field.meta.add("name", [Context.parse('"' + field.name + '"', ref.pos)], ref.pos);
+	}
 	#end
 }

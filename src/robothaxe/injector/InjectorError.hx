@@ -15,4 +15,9 @@ class InjectorError
 	{
 		this.message = message;
 	}
+
+	public function toString()
+	{
+		return message;
+	}
 }

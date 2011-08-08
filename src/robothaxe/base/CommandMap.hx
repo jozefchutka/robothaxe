@@ -14,7 +14,6 @@ import robothaxe.core.ICommandMap;
 import robothaxe.core.IInjector;
 import robothaxe.core.IReflector;
 import robothaxe.util.Register;
-import robothaxe.base.support.ManualCommand;
 
 /**
  * An abstract <code>ICommandMap</code> implementation
