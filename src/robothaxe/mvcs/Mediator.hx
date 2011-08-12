@@ -107,6 +107,6 @@ class Mediator extends MediatorBase
 	 */		
 	function addContextListener(type:String, listener:Dynamic, ?eventClass:Class<Dynamic>=null, ?useCapture:Bool=false, ?priority:Int=0, ?useWeakReference:Bool=true):Void
  	{
-		//eventMap.mapListener(eventDispatcher, type, listener, eventClass, useCapture, priority, useWeakReference);
+		eventMap.mapListener(eventDispatcher, type, listener, eventClass, useCapture, priority, useWeakReference);
 	}
 }

@@ -235,7 +235,10 @@ class MediatorMap extends ViewMapBase, implements IMediatorMap
 	{
 		for (med in mediatorByView)
 		{
-			if (med == mediator) return true;
+			if (med == mediator)
+			{
+				return true;
+			}
 		}
 			
 		return false;
@@ -252,8 +255,8 @@ class MediatorMap extends ViewMapBase, implements IMediatorMap
 	{
 		if (contextView != null && enabled)
 		{
-			//contextView.addEventListener(Event.ADDED_TO_STAGE, onViewAdded, useCapture, 0, true);
-			//contextView.addEventListener(Event.REMOVED_FROM_STAGE, onViewRemoved, useCapture, 0, true);
+			contextView.dispatcher.add(onViewAdded, COMPONENT_ADDED);
+			//contextView.dispatcher.add(COMPONENT_REMOVED, onViewRemoved);
 		}
 	}
 	
@@ -264,8 +267,8 @@ class MediatorMap extends ViewMapBase, implements IMediatorMap
 	{
 		if (contextView != null)
 		{
-			//contextView.removeEventListener(Event.ADDED_TO_STAGE, onViewAdded, useCapture);
-			//contextView.removeEventListener(Event.REMOVED_FROM_STAGE, onViewRemoved, useCapture);
+			contextView.dispatcher.remove(onViewAdded);
+			//contextView.dispatcher.remove(COMPONENT_REMOVED, onViewRemoved);
 		}
 	}
 	
