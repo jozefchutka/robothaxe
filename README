@@ -1,5 +1,9 @@
-Please note this is a work in progress release! It also requires some soon to be released projects (Raxe, RaxeTasks) as well as MassiveUI. I plan to extract the MassiveUI dependency into an interface to fix this.
+To run the unit test suite in JS and AVM2 run the following from the command line:
 
-All munit tests are currently passing under both AS3 and JS, although a number are currently commented out. I'm working my way through them.
+% haxe test.hxml
 
-Stay tuned.
+View mediation has been extracted into an interface: robothaxe.core.IView. ViewMaps add callbacks for viewAdded and viewRemoved, which in Flash would map to ADDED_TO_STAGE and REMOVED_FROM_STAGE, and in JS could potentially use DOM mutation events. I'll make a simple cross platform proof of concept soon.
+
+Some tests have been commented out, I'm still working my way through them :)
+
+Stay tuned!

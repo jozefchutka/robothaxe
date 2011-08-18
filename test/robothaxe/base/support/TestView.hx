@@ -7,15 +7,12 @@
 
 package robothaxe.base.support;
 
-import massive.ui.core.Component;
-
-class TestComponent extends Component, implements ITestComponent
+class TestView implements ITestView
 {
 	@inject("injectionName")
 	public var injectionPoint:String;
 	
 	public function new()
 	{
-		super();
 	}
 }

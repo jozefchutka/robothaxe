@@ -12,16 +12,15 @@ import robothaxe.event.IEventDispatcher;
 import robothaxe.core.ICommandMap;
 import robothaxe.core.IInjector;
 import robothaxe.core.IMediatorMap;
-import massive.ui.core.Container;
+import robothaxe.core.IView;
 
 /**
  * Abstract MVCS command implementation
  */
 class Command
- {
-	
+{
 	@inject
-	public var contextView:Container;
+	public var contextView:IView;
 	
 	@inject
 	public var commandMap:ICommandMap;

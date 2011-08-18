@@ -7,7 +7,7 @@
 
 package robothaxe.core;
 
-import massive.ui.core.Container;
+import robothaxe.core.IView;
 
 /**
  * The Robotlegs MediatorMap contract
@@ -105,11 +105,11 @@ interface IMediatorMap
 	function hasMediatorForView(viewComponent:Dynamic):Bool;
 	
 	/**
-	 * The <code>IMediatorMap</code>'s <code>Container</code>
+	 * The <code>IMediatorMap</code>'s <code>IView</code>
 	 *
-	 * @return view The <code>Container</code> to use as scope for this <code>IMediatorMap</code>
+	 * @return view The <code>IView</code> to use as scope for this <code>IMediatorMap</code>
 	 */
-	var contextView(default, set_contextView):Container;
+	var contextView(default, set_contextView):IView;
 	
 	/**
 	 * The <code>IMediatorMap</code>'s enabled status

@@ -11,14 +11,13 @@ import robothaxe.event.Event;
 import robothaxe.util.Dictionary;
 import robothaxe.core.IInjector;
 import robothaxe.core.IViewMap;
-import massive.display.Display;
-import massive.ui.core.Component;
-import massive.ui.core.Container;
+import robothaxe.core.IView;
 
 /**
  * An abstract <code>IViewMap</code> implementation
  */
-class ViewMap extends ViewMapBase, implements IViewMap {
+class ViewMap extends ViewMapBase, implements IViewMap
+{
 	/**
 	 * @private
 	 */
@@ -48,7 +47,7 @@ class ViewMap extends ViewMapBase, implements IViewMap {
 	 * @param contextView The root view node of the context. The map will listen for ADDED_TO_STAGE events on this node
 	 * @param injector An <code>IInjector</code> to use for this context
 	 */
-	public function new(contextView:Container, injector:IInjector)
+	public function new(contextView:IView, injector:IInjector)
 	{
 		super(contextView, injector);
 
@@ -166,7 +165,8 @@ class ViewMap extends ViewMapBase, implements IViewMap {
 	{
 		if (contextView != null && enabled)
 		{
-			contextView.dispatcher.add(onViewAdded, COMPONENT_ADDED);
+			contextView.viewAdded = onViewAdded;
+			contextView.viewRemoved = onViewAdded;
 		}
 	}
 
@@ -177,25 +177,26 @@ class ViewMap extends ViewMapBase, implements IViewMap {
 	{
 		if (contextView != null)
 		{
-			contextView.dispatcher.remove(onViewAdded);
+			contextView.viewAdded = null;
+			contextView.viewRemoved = null;
 		}
 	}
 
 	/**
 	 * @private
 	 */
-	override function onViewAdded(message:Dynamic, target:Component):Void
+	override function onViewAdded(view:Dynamic):Void
 	{
-		if (injectedViews.get(target) != null)
+		if (injectedViews.get(view) != null)
 		{
 			return;
 		}
 		
 		for (type in mappedTypes)
 		{
-			if (Std.is(target, type))
+			if (Std.is(view, type))
 			{
-				injectInto(target);
+				injectInto(view);
 				return;
 			}
 		}
@@ -204,7 +205,7 @@ class ViewMap extends ViewMapBase, implements IViewMap {
 
 		if (len > 0)
 		{
-			var className = Type.getClassName(Type.getClass(target));
+			var className = Type.getClassName(Type.getClass(view));
 
 			for (i in 0...len)
 			{
@@ -212,16 +213,21 @@ class ViewMap extends ViewMapBase, implements IViewMap {
 
 				if (className.indexOf(packageName) == 0)
 				{
-					injectInto(target);
+					injectInto(view);
 					return;
 				}
 			}
 		}
 	}
 
-	function injectInto(target:Display):Void
+	override function onViewRemoved(view:Dynamic):Void
 	{
-		injector.injectInto(target);
-		injectedViews.add(target, true);
+		trace("TODO");
+	}
+
+	function injectInto(view:Dynamic):Void
+	{
+		injector.injectInto(view);
+		injectedViews.add(view, true);
 	}
 }

@@ -7,9 +7,9 @@
 
 package robothaxe.mvcs.support;
 
-import massive.ui.core.Component;
+import robothaxe.core.IView;
 
-class ViewComponent extends Component
+class ViewComponent implements IView
 {
 	public function new()
 	{

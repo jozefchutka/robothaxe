@@ -17,7 +17,7 @@ class MediatorBase implements IMediator
 	/**
 	 * Internal
 	 *
-	 * <p>This Mediator's View Component - used by the RobotLegs MVCS framework internally.
+	 * <p>This Mediator's View - used by the RobotLegs MVCS framework internally.
 	 * You should declare a dependency on a concrete view component in your
 	 * implementation instead of working with this property</p>
 	 */

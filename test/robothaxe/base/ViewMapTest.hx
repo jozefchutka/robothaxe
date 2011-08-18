@@ -7,16 +7,16 @@
 
 package robothaxe.base;
 
-import massive.ui.core.Container;
 import massive.munit.Assert;
 import robothaxe.injector.Injector;
 import robothaxe.injector.Reflector;
-import robothaxe.base.support.TestComponent;
-import robothaxe.base.support.ITestComponent;
-import robothaxe.base.support.TestContainer;
+import robothaxe.base.support.TestView;
+import robothaxe.base.support.ITestView;
+import robothaxe.base.support.TestContextView;
 import robothaxe.core.IInjector;
 import robothaxe.core.IReflector;
 import robothaxe.core.IViewMap;
+import robothaxe.core.IView;
 
 class ViewMapTest
  {
@@ -25,8 +25,8 @@ class ViewMapTest
 	static var INJECTION_NAME = "injectionName";
 	static var INJECTION_STRING = "injectionString";
 	
-	var contextView:TestContainer;
-	var testView:TestComponent;
+	var contextView:TestContextView;
+	var testView:TestView;
 	var injector:IInjector;
 	var reflector:IReflector;
 	var viewMap:IViewMap;
@@ -34,8 +34,8 @@ class ViewMapTest
 	@Before
 	public function runBeforeEachTest():Void
 	{
-		contextView = new TestContainer();
-		testView = new TestComponent();
+		contextView = new TestContextView();
+		testView = new TestView();
 		injector = new Injector();
 		reflector = new Reflector();
 		viewMap = new ViewMap(contextView, injector);
@@ -75,7 +75,7 @@ class ViewMapTest
 	public function mapTypeAndAddToDisplay():Void
 	{
 		viewMap.mapType(TestComponent);
-		contextView.addComponent(testView);
+		contextView.addView(testView);
 		Assert.areEqual(INJECTION_STRING, testView.injectionPoint);//"Injection points should be satisfied"
 	}
 	
@@ -84,7 +84,7 @@ class ViewMapTest
 	{
 		viewMap.mapType(TestComponent);
 		viewMap.unmapType(TestComponent);
-		contextView.addComponent(testView);
+		contextView.addView(testView);
 		Assert.isNull(testView.injectionPoint);//"Injection points should NOT be satisfied after unmapping"
 	}
 	
@@ -92,26 +92,26 @@ class ViewMapTest
 	public function mapTypeAndAddToDisplayTwice():Void
 	{
 		viewMap.mapType(TestComponent);
-		contextView.addComponent(testView);
+		contextView.addView(testView);
 		testView.injectionPoint = null;
-		contextView.removeComponent(testView);
-		contextView.addComponent(testView);
+		contextView.removeView(testView);
+		contextView.addView(testView);
 		Assert.isNull(testView.injectionPoint);//"View should NOT be injected into twice"
 	}
 	
 	@Test
 	public function mapTypeOfContextViewShouldInjectIntoIt():Void
 	{
-		viewMap.mapType(TestContainer);
+		viewMap.mapType(TestContextView);
 		Assert.areEqual(INJECTION_STRING, contextView.injectionPoint);//"Injection points in contextView should be satisfied"
 	}
 	*/
 	@Test
 	public function mapTypeOfContextViewTwiceShouldInjectOnlyOnce():Void
 	{
-		viewMap.mapType(TestContainer);
+		viewMap.mapType(TestContextView);
 		contextView.injectionPoint = null;
-		viewMap.mapType(TestContainer);
+		viewMap.mapType(TestContextView);
 		Assert.isNull(testView.injectionPoint);//"contextView should NOT be injected into twice"
 	}
 	
@@ -136,7 +136,7 @@ class ViewMapTest
 	public function mappedPackageIsInjected():Void
 	{
 		viewMap.mapPackage("robothaxe");
-		contextView.addComponent(testView);
+		contextView.addView(testView);
 		Assert.areEqual(INJECTION_STRING, testView.injectionPoint);//"Injection points should be satisfied"
 	}
 	
@@ -144,7 +144,7 @@ class ViewMapTest
 	public function mappedAbsolutePackageIsInjected():Void
 	{
 		viewMap.mapPackage("robothaxe.base.support");
-		contextView.addComponent(testView);
+		contextView.addView(testView);
 		Assert.areEqual(INJECTION_STRING, testView.injectionPoint);//"Injection points should be satisfied"
 	}
 	
@@ -153,7 +153,7 @@ class ViewMapTest
 	{
 		viewMap.mapPackage("robothaxe");
 		viewMap.unmapPackage("robothaxe");
-		contextView.addComponent(testView);
+		contextView.addView(testView);
 		Assert.isNull(testView.injectionPoint);//"Injection points should NOT be satisfied after unmapping"
 	}
 	
@@ -161,10 +161,10 @@ class ViewMapTest
 	public function mappedPackageNotInjectedTwiceWhenRemovedAndAdded():Void
 	{
 		viewMap.mapPackage("robothaxe");
-		contextView.addComponent(testView);
+		contextView.addView(testView);
 		testView.injectionPoint = null;
-		contextView.removeComponent(testView);
-		contextView.addComponent(testView);
+		contextView.removeView(testView);
+		contextView.addView(testView);
 		
 		Assert.isNull(testView.injectionPoint);//"View should NOT be injected into twice"
 	}
@@ -172,45 +172,45 @@ class ViewMapTest
 	@Test
 	public function mapInterface():Void
 	{
-		viewMap.mapType(ITestComponent);
-		var mapped = viewMap.hasType(ITestComponent);
+		viewMap.mapType(ITestView);
+		var mapped = viewMap.hasType(ITestView);
 		Assert.isTrue(mapped);//"Inteface should be mapped"
 	}
 	
 	@Test
 	public function unmapInterface():Void
 	{
-		viewMap.mapType(ITestComponent);
-		viewMap.unmapType(ITestComponent);
-		var mapped = viewMap.hasType(ITestComponent);
+		viewMap.mapType(ITestView);
+		viewMap.unmapType(ITestView);
+		var mapped = viewMap.hasType(ITestView);
 		Assert.isFalse(mapped);//"Class should NOT be mapped"
 	}
 	
 	@Test
 	public function mappedInterfaceIsInjected():Void
 	{
-		viewMap.mapType(ITestComponent);
-		contextView.addComponent(testView);
+		viewMap.mapType(ITestView);
+		contextView.addView(testView);
 		Assert.areEqual(INJECTION_STRING, testView.injectionPoint);//"Injection points should be satisfied"
 	}
 	
 	@Test
 	public function unmappedInterfaceShouldNotBeInjected():Void
 	{
-		viewMap.mapType(ITestComponent);
-		viewMap.unmapType(ITestComponent);
-		contextView.addComponent(testView);
+		viewMap.mapType(ITestView);
+		viewMap.unmapType(ITestView);
+		contextView.addView(testView);
 		Assert.isNull(testView.injectionPoint);//"Injection points should NOT be satisfied after unmapping"
 	}
 	
 	@Test
 	public function mappedInterfaceNotInjectedTwiceWhenRemovedAndAdded():Void
 	{
-		viewMap.mapType(ITestComponent);
-		contextView.addComponent(testView);
+		viewMap.mapType(ITestView);
+		contextView.addView(testView);
 		testView.injectionPoint = null;
-		contextView.removeComponent(testView);
-		contextView.addComponent(testView);
+		contextView.removeView(testView);
+		contextView.addView(testView);
 		Assert.isNull(testView.injectionPoint);//"View should NOT be injected into twice"
 	}
 }

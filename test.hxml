@@ -1,0 +1,1 @@
+-cmd haxelib run munit test test-targets.hxml test build/test build/test-report -as3 -js -keep-browser-alive

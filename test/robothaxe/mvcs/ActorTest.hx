@@ -9,10 +9,10 @@ package robothaxe.mvcs;
 import robothaxe.event.Event;
 import robothaxe.event.IEventDispatcher;
 import robothaxe.core.IInjector;
+import robothaxe.core.IView;
 import robothaxe.mvcs.support.TestActor;
 import robothaxe.mvcs.support.TestContext;
 import robothaxe.mvcs.support.TestContextView;
-import massive.ui.core.Container;
 import massive.munit.Assert;
 import massive.munit.async.AsyncFactory;
 
@@ -21,7 +21,7 @@ class ActorTest
  	public static var TEST_EVENT = "testEvent";
 
 	var context:TestContext;
-	var contextView:Container;
+	var contextView:IView;
 	var actor:TestActor;
 	var injector:IInjector;
 	var eventDispatcher:IEventDispatcher;

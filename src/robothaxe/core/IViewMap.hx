@@ -7,7 +7,7 @@
 
 package robothaxe.core;
 
-import massive.ui.core.Container;
+import robothaxe.core.IView;
 
 /**
  * The Robotlegs ViewMap contract. All IViewMap automatic injections occur AFTER the view components are added to the stage.
@@ -59,11 +59,11 @@ interface IViewMap
 	function hasType(type:Class<Dynamic>):Bool;
 	
 	/**
-	 * The <code>IViewMap</code>'s <code>Container</code>
+	 * The <code>IViewMap</code>'s <code>IView</code>
 	 *
-	 * @return view The <code>Container</code> to use as scope for this <code>IViewMap</code>
+	 * @return view The <code>IView</code> to use as scope for this <code>IViewMap</code>
 	 */
-	var contextView(default, set_contextView):Container;
+	var contextView(default, set_contextView):IView;
 	
 	/**
 	 * The <code>IViewMap</code>'s enabled status

@@ -22,9 +22,9 @@ import robothaxe.core.IInjector;
 import robothaxe.core.IMediatorMap;
 import robothaxe.core.IReflector;
 import robothaxe.core.IViewMap;
+import robothaxe.core.IView;
 import robothaxe.injector.Injector;
 import robothaxe.injector.Reflector;
-import massive.ui.core.Container;
 
 /**
  * Dispatched by the <code>startup()</code> method when it finishes
@@ -64,7 +64,7 @@ import massive.ui.core.Container;
  */
 class Context extends ContextBase, implements IContext
 {
-	public var contextView(default, set_contextView):Container;
+	public var contextView(default, set_contextView):IView;
 	
 	public var commandMap(get_commandMap, null):ICommandMap;
 
@@ -93,7 +93,7 @@ class Context extends ContextBase, implements IContext
 	 * @param contextView The root view node of the context. The context will listen for ADDED_TO_STAGE events on this node
 	 * @param autoStartup Should this context automatically invoke it's <code>startup</code> method when it's <code>contextView</code> arrives on Stage?
 	 */
-	public function new(?contextView:Container = null, ?autoStartup:Bool = true)
+	public function new(?contextView:IView = null, ?autoStartup:Bool = true)
 	{
 		super();
 
@@ -136,7 +136,7 @@ class Context extends ContextBase, implements IContext
 	/**
 	 * @private
 	 */
-	public function set_contextView(value:Container):Container
+	public function set_contextView(value:IView):IView
 	{
 		if (contextView != value)
 		{
@@ -230,7 +230,7 @@ class Context extends ContextBase, implements IContext
 		injector.mapValue(IReflector, reflector);
 		injector.mapValue(IInjector, injector);
 		injector.mapValue(IEventDispatcher, eventDispatcher);
-		injector.mapValue(Container, contextView);
+		injector.mapValue(IView, contextView);
 		injector.mapValue(ICommandMap, commandMap);
 		injector.mapValue(IMediatorMap, mediatorMap);
 		injector.mapValue(IViewMap, viewMap);

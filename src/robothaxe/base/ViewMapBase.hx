@@ -9,15 +9,14 @@ package robothaxe.base;
 
 import robothaxe.event.Event;
 import robothaxe.core.IInjector;
-import massive.ui.core.Component;
-import massive.ui.core.Container;
+import robothaxe.core.IView;
 
 /**
  * A base ViewMap implementation
  */
 class ViewMapBase
 {
-	public var contextView(default, set_contextView):Container;
+	public var contextView(default, set_contextView):IView;
 	public var enabled(default, set_enabled):Bool;
 	
 	/**
@@ -45,7 +44,7 @@ class ViewMapBase
 	 * @param contextView The root view node of the context. The map will listen for ADDED_TO_STAGE events on this node
 	 * @param injector An <code>IInjector</code> to use for this context
 	 */
-	public function new(contextView:Container, injector:IInjector)
+	public function new(contextView:IView, injector:IInjector)
 	{
 		viewListenerCount = 0;
 		enabled = true;
@@ -66,7 +65,7 @@ class ViewMapBase
 	/**
 	 * @inheritDoc
 	 */
-	public function set_contextView(value:Container):Container
+	public function set_contextView(value:IView):IView
 	{
 		if (value != contextView)
 		{
@@ -124,7 +123,14 @@ class ViewMapBase
 	/**
 	 * @private
 	 */
-	function onViewAdded(message:Dynamic, target:Component):Void
+	function onViewAdded(view:Dynamic):Void
+	{
+	}
+
+	/**
+	 * @private
+	 */
+	function onViewRemoved(view:Dynamic):Void
 	{
 	}
 }

@@ -13,8 +13,7 @@ import robothaxe.core.IMediator;
 import robothaxe.core.IMediatorMap;
 import robothaxe.core.IReflector;
 import robothaxe.util.Dictionary;
-import massive.ui.core.Container;
-import massive.ui.core.Component;
+import robothaxe.core.IView;
 
 /**
  * An abstract <code>IMediatorMap</code> implementation
@@ -63,7 +62,7 @@ class MediatorMap extends ViewMapBase, implements IMediatorMap
 	 * @param injector An <code>IInjector</code> to use for this context
 	 * @param reflector An <code>IReflector</code> to use for this context
 	 */
-	public function new(contextView:Container, injector:IInjector, reflector:IReflector)
+	public function new(contextView:IView, injector:IInjector, reflector:IReflector)
 	{
 		super(contextView, injector);
 		
@@ -255,8 +254,8 @@ class MediatorMap extends ViewMapBase, implements IMediatorMap
 	{
 		if (contextView != null && enabled)
 		{
-			contextView.dispatcher.add(onViewAdded, COMPONENT_ADDED);
-			//contextView.dispatcher.add(COMPONENT_REMOVED, onViewRemoved);
+			contextView.viewAdded = onViewAdded;
+			contextView.viewRemoved = onViewRemoved;
 		}
 	}
 	
@@ -267,31 +266,39 @@ class MediatorMap extends ViewMapBase, implements IMediatorMap
 	{
 		if (contextView != null)
 		{
-			contextView.dispatcher.remove(onViewAdded);
-			//contextView.dispatcher.remove(COMPONENT_REMOVED, onViewRemoved);
+			contextView.viewAdded = null;
+			contextView.viewRemoved = null;
 		}
 	}
 	
 	/**
 	 * @private
 	 */		
-	override function onViewAdded(message:Dynamic, target:Component):Void
+	override function onViewAdded(view:Dynamic):Void
 	{
-		if (mediatorsMarkedForRemoval.get(target) != null)
+		if (mediatorsMarkedForRemoval.get(view) != null)
 		{
-			mediatorsMarkedForRemoval.remove(target);
+			mediatorsMarkedForRemoval.remove(view);
 			return;
 		}
 		
-		var viewClassName:String = Type.getClassName(Type.getClass(target));
+		var viewClassName:String = Type.getClassName(Type.getClass(view));
 		var config = mappingConfigByViewClassName.get(viewClassName);
 		
 		if (config != null && config.autoCreate)
 		{
-			createMediatorUsing(target, viewClassName, config);
+			createMediatorUsing(view, viewClassName, config);
 		}
 	}
 	
+	/**
+	 * @private
+	 */		
+	override function onViewRemoved(view:Dynamic):Void
+	{
+		trace("TODO");
+	}
+
 	/**
 	 * @private
 	 */		

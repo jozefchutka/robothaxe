@@ -6,10 +6,9 @@
 */
 package robothaxe.mvcs;
 
-import robothaxe.event.Event;
-
-import massive.ui.core.Container;
 import massive.munit.Assert;
+import robothaxe.event.Event;
+import robothaxe.core.IView;
 import robothaxe.base.ContextEvent;
 import robothaxe.mvcs.support.TestContext;
 import robothaxe.mvcs.support.TestContextView;
@@ -17,14 +16,14 @@ import robothaxe.mvcs.support.TestContextView;
 class ContextTest
 {
 	var context:TestContext;
-	var contextView:Container;
+	var contextView:TestContextView;
 	
 	public function new(){}
 
 	@Before
 	public function runBeforeEachTest():Void
 	{
-		contextView = new Container();
+		contextView = new TestContextView();
 	}
 	
 	@After

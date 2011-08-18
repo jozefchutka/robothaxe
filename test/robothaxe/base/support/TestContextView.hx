@@ -4,7 +4,7 @@
 * Permission is hereby granted to use, modify, and distribute this file
 * in accordance with the terms of the license agreement accompanying it.
 */
-package robothaxe.mvcs.support;
+package robothaxe.base.support;
 
 import robothaxe.core.IView;
 

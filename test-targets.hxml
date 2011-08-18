@@ -1,0 +1,15 @@
+-main TestMain
+-cp src
+-cp test
+-lib munit
+-swf build/test/as3_test.swf
+--macro RTTI.generate()
+
+--next
+
+-main TestMain
+-cp src
+-cp test
+-lib munit
+-js build/test/js_test.js
+--macro RTTI.generate()
