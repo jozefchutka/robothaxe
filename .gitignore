@@ -1,4 +1,2 @@
 .svn*
 .DS_Store*
-build/test/**/* 
-build/test-report/**/* 
