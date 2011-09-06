@@ -21,16 +21,11 @@ class EventMap implements IEventMap
 	 * The <code>IEventDispatcher</code>
 	 */
 	
-	public var dispatcherListeningEnabled(getDispatcherListeningEnabled, setDispatcherListeningEnabled) : Bool;
+	public var dispatcherListeningEnabled:Bool;
 	/**
 	 * The <code>IEventDispatcher</code>
 	 */
 	var eventDispatcher:IEventDispatcher;
-	
-	/**
-	 * @private
-	 */
-	var _dispatcherListeningEnabled:Bool ;
 	
 	/**
 	 * @private
@@ -48,7 +43,7 @@ class EventMap implements IEventMap
 	 */
 	public function new(eventDispatcher:IEventDispatcher)
 	{
-		_dispatcherListeningEnabled = true;
+		dispatcherListeningEnabled = true;
 		listeners = [];
 		this.eventDispatcher = eventDispatcher;
 	}
@@ -56,21 +51,6 @@ class EventMap implements IEventMap
 	//---------------------------------------------------------------------
 	//  API
 	//---------------------------------------------------------------------
-	
-	/**
-	 * @return Is shared dispatcher listening allowed?
-	 */
-	public function getDispatcherListeningEnabled():Bool{
-		return _dispatcherListeningEnabled;
-	}
-	
-	/**
-	 * @private
-	 */
-	public function setDispatcherListeningEnabled(value:Bool):Bool{
-		_dispatcherListeningEnabled = value;
-		return value;
-	}
 	
 	/**
 	 * The same as calling <code>addEventListener</code> directly on the <code>IEventDispatcher</code>,
@@ -84,7 +64,7 @@ class EventMap implements IEventMap
 	 * @param priority
 	 * @param useWeakReference
 	 */
-	public function mapListener(dispatcher:IEventDispatcher, type:String, listener:Dynamic, ?eventClass:Class<Dynamic> = null, ?useCapture:Bool = false, ?priority:Int = 0, ?useWeakReference:Bool = true):Void
+	public function mapListener(dispatcher:IEventDispatcher, type:String, listener:Dynamic, ?eventClass:Class<Dynamic>=null, ?useCapture:Bool=false, ?priority:Int=0, ?useWeakReference:Bool=true):Void
 	{
 		if (dispatcherListeningEnabled == false && dispatcher == eventDispatcher)
 		{
@@ -97,7 +77,7 @@ class EventMap implements IEventMap
 		{
 			if (params.dispatcher == dispatcher
 				&& params.type == type
-				&& params.listener == listener
+				&& Reflect.compareMethods(params.listener, listener)
 				&& params.useCapture == useCapture
 				&& params.eventClass == eventClass)
 			{
@@ -146,7 +126,7 @@ class EventMap implements IEventMap
 			params = listeners[i];
 			if (params.dispatcher == dispatcher
 				&& params.type == type
-				&& params.listener == listener
+				&& Reflect.compareMethods(params.listener, listener)
 				&& params.useCapture == useCapture
 				&& params.eventClass == eventClass)
 			{

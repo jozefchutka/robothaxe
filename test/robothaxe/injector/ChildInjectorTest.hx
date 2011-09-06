@@ -42,8 +42,7 @@ class ChildInjectorTest
 	public function injectorCreatesChildInjector():Void
 	{
 		var childInjector = injector.createChildInjector();
-		Assert.isTrue(Std.is(childInjector, Injector));
-		//'injector.createChildInjector should return an injector'
+		Assert.isTrue(Std.is(childInjector, Injector));//'injector.createChildInjector should return an injector'
 	}
 	
 	@Test
@@ -64,10 +63,8 @@ class ChildInjectorTest
 		rightFootRule.setInjector(rightChildInjector);
 		
 		var robotBody = injector.instantiate(RobotBody);
-		Assert.isTrue(Std.is(robotBody.rightLeg.ankle.foot, RightRobotFoot));
-		//'Right RobotLeg should have a RightRobotFoot'
-		Assert.isTrue(Std.is(robotBody.leftLeg.ankle.foot, LeftRobotFoot));
-		//'Left RobotLeg should have a LeftRobotFoot'
+		Assert.isTrue(Std.is(robotBody.rightLeg.ankle.foot, RightRobotFoot));//'Right RobotLeg should have a RightRobotFoot'
+		Assert.isTrue(Std.is(robotBody.leftLeg.ankle.foot, LeftRobotFoot));//'Left RobotLeg should have a LeftRobotFoot'
 	}
 	
 	@Test
@@ -112,10 +109,8 @@ class ChildInjectorTest
 		rightFootRule.setInjector(rightChildInjector);
 
 		var robotBody = injector.instantiate(RobotBody);
-		Assert.isTrue(Std.is(robotBody.rightLeg.ankle.foot, RightRobotFoot));
-		//'Right RobotFoot should have RightRobotFoot'
-		Assert.isTrue(Std.is(robotBody.leftLeg.ankle.foot, LeftRobotFoot));
-		//'Left RobotFoot should have LeftRobotFoot'
+		Assert.isTrue(Std.is(robotBody.rightLeg.ankle.foot, RightRobotFoot));//'Right RobotFoot should have RightRobotFoot'
+		Assert.isTrue(Std.is(robotBody.leftLeg.ankle.foot, LeftRobotFoot));//'Left RobotFoot should have LeftRobotFoot'
 	}
 	
 	@Test
@@ -131,8 +126,7 @@ class ChildInjectorTest
 
 		var injectee = injector.instantiate(ClassInjectee);
 		childInjector.injectInto(injectee);
-		Assert.areEqual(injectee.property, class1);
-		//'injectee.property isn\' overwritten by second injection through child injector'
+		Assert.areEqual(injectee.property, class1);//'injectee.property isn\' overwritten by second injection through child injector'
 	}
 	
     @Test
@@ -142,16 +136,14 @@ class ChildInjectorTest
         var class1 = new Class1();
         injector.mapValue(Class1, class1);  
         
-        Assert.isTrue(childInjector.hasMapping(Class1));
-        //'Child injector should return true for hasMapping that exists on parent injector'
+        Assert.isTrue(childInjector.hasMapping(Class1));//'Child injector should return true for hasMapping that exists on parent injector'
     }
     
     @Test
     public function childInjectorDoesNotHaveMappingWhenDoesNotExistOnParentInjector():Void
     {
         var childInjector = injector.createChildInjector();
-        Assert.isFalse(childInjector.hasMapping(Class1));
-        //'Child injector should not return true for hasMapping that does not exists on parent injector'
+        Assert.isFalse(childInjector.hasMapping(Class1));//'Child injector should not return true for hasMapping that does not exists on parent injector'
     }
     
     @Test
@@ -164,8 +156,7 @@ class ChildInjectorTest
         injector.mapSingleton(Class1);
         grandChildInjector.injectInto(injectee);
         
-        Assert.isTrue(Std.is(injectee.property, Class1));
-        //"injectee has been injected with Class1 instance from grandChildInjector"
+        Assert.isTrue(Std.is(injectee.property, Class1));//"injectee has been injected with Class1 instance from grandChildInjector"
     }
 	
 	@Test
@@ -175,11 +166,8 @@ class ChildInjectorTest
 		injector.mapClass(InjectorInjectee, InjectorInjectee);
 		var injectee = injector.getInstance(InjectorInjectee);
 
-		Assert.isNotNull(injectee.injector);
-		//'Injection has been applied to injectorInjectee'
-		Assert.isTrue(injectee.injector.parentInjector == injector);
-		//'injectorInjectee.injector is child of main injector'
-		Assert.isTrue(injectee.nestedInjectee.nestedInjectee.injector.parentInjector.parentInjector.parentInjector == injector);
-		//'injectorInjectee.nestedInjectee is grandchild of main injector'
+		Assert.isNotNull(injectee.injector);//'Injection has been applied to injectorInjectee'
+		Assert.isTrue(injectee.injector.parentInjector == injector);//'injectorInjectee.injector is child of main injector'
+		Assert.isTrue(injectee.nestedInjectee.nestedInjectee.injector.parentInjector.parentInjector.parentInjector == injector);//'injectorInjectee.nestedInjectee is grandchild of main injector'
 	}
 }

@@ -93,8 +93,7 @@ class InjectorTest
 
 		injector.mapValue(Interface1, value);
 		injector.injectInto(injectee);
-		Assert.areEqual(value, injectee.property);
-		//"Value should have been injected"
+		Assert.areEqual(value, injectee.property);//"Value should have been injected"
 	}
 	
 	@Test
@@ -105,8 +104,7 @@ class InjectorTest
 
 		injector.mapValue(Class1, value, NamedClassInjectee.NAME);
 		injector.injectInto(injectee);
-		Assert.areEqual(value, injectee.property);
-		//"Named value should have been injected"
+		Assert.areEqual(value, injectee.property);//"Named value should have been injected"
 	}
 	
 	@Test
@@ -117,8 +115,7 @@ class InjectorTest
 
 		injector.mapValue(Interface1, value, NamedClassInjectee.NAME);
 		injector.injectInto(injectee);
-		Assert.areEqual(value, injectee.property);
-		//"Named value should have been injected"
+		Assert.areEqual(value, injectee.property);//"Named value should have been injected"
 	}
 	
 	@Test
@@ -130,8 +127,7 @@ class InjectorTest
 		injector.mapValue(String, value);
 		injector.injectInto(injectee);
 
-		Assert.areEqual(value, injectee.property);
-		//"Value should have been injected"
+		Assert.areEqual(value, injectee.property);//"Value should have been injected"
 	}
 	
 	@Test
@@ -143,8 +139,7 @@ class InjectorTest
 		injector.mapValue(InterfaceInjectee, value);
 		injector.injectInto(injectee);
 		
-		Assert.isNull(value.property);
-		//"value shouldn't have been injected into"
+		Assert.isNull(value.property);//"value shouldn't have been injected into"
 	}
 	
 	@Test
@@ -156,16 +151,13 @@ class InjectorTest
 		injector.mapSingletonOf(Interface2, Class1);
 
 		injector.injectInto(injectee);
-		Assert.isNotNull(injectee.property1);
-		//"Singleton Value for 'property1' should have been injected"
+		Assert.isNotNull(injectee.property1);//"Singleton Value for 'property1' should have been injected"
 
-		Assert.isNotNull(injectee.property2);
-		//"Singleton Value for 'property2' should have been injected"
+		Assert.isNotNull(injectee.property2);//"Singleton Value for 'property2' should have been injected"
 
 		// in haxe you can't compare types which the compiler knows cannot be the same
 		var same = untyped (injectee.property1 == injectee.property2);
-		Assert.isFalse(same);
-		//"Singleton Values 'property1' and 'property2' should not be identical"
+		Assert.isFalse(same);//"Singleton Values 'property1' and 'property2' should not be identical"
 	}
 	
 	@Test
@@ -193,11 +185,8 @@ class InjectorTest
 		injector.mapClass(ComplexClass, ComplexClass);
 		injector.injectInto(injectee);
 
-		Assert.isNotNull(injectee.property);
-		//"Complex Value should have been injected"
-
-		Assert.areEqual(value, injectee.property.value);
-		//"Nested value should have been injected"
+		Assert.isNotNull(injectee.property);//"Complex Value should have been injected"
+		Assert.areEqual(value, injectee.property.value);//"Nested value should have been injected"
 	}
 	
 	@Test
@@ -206,8 +195,7 @@ class InjectorTest
 		var injectee = new InterfaceInjectee();
 		injector.mapClass(Interface1, Class1);
 		injector.injectInto(injectee);
-		Assert.isNotNull(injectee.property);
-		//"Instance of Class should have been injected"
+		Assert.isNotNull(injectee.property);//"Instance of Class should have been injected"
 	}
 	
 	@Test
@@ -216,8 +204,7 @@ class InjectorTest
 		var injectee:NamedClassInjectee = new NamedClassInjectee();
 		injector.mapClass(Class1, Class1, NamedClassInjectee.NAME);
 		injector.injectInto(injectee);
-		Assert.isNotNull(injectee.property);
-		//"Instance of named Class should have been injected"
+		Assert.isNotNull(injectee.property);//"Instance of named Class should have been injected"
 	}
 	
 	@Test
@@ -226,8 +213,7 @@ class InjectorTest
 		var injectee = new NamedInterfaceInjectee();
 		injector.mapClass(Interface1, Class1, NamedClassInjectee.NAME);
 		injector.injectInto(injectee);
-		Assert.isNotNull(injectee.property);
-		//"Instance of named Class should have been injected"
+		Assert.isNotNull(injectee.property);//"Instance of named Class should have been injected"
 	}
 	
 	@Test
@@ -239,12 +225,10 @@ class InjectorTest
 		injector.mapSingleton(Class1);
 
 		injector.injectInto(injectee1);
-		Assert.isNotNull(injectee1.property);
-		//"Instance of Class should have been injected"
+		Assert.isNotNull(injectee1.property);//"Instance of Class should have been injected"
 		
 		injector.injectInto(injectee2);
-		Assert.areEqual(injectee1.property, injectee2.property);
-		//"Injected values should be equal"
+		Assert.areEqual(injectee1.property, injectee2.property);//"Injected values should be equal"
 	}
 	
 	@Test
@@ -256,12 +240,10 @@ class InjectorTest
 		injector.mapSingletonOf(Interface1, Class1);
 
 		injector.injectInto(injectee1);
-		Assert.isNotNull(injectee1.property);
-		//"Instance of Class should have been injected"
+		Assert.isNotNull(injectee1.property);//"Instance of Class should have been injected"
 
 		injector.injectInto(injectee2);
-		Assert.areEqual(injectee1.property, injectee2.property);
-		//"Injected values should be equal"
+		Assert.areEqual(injectee1.property, injectee2.property);//"Injected values should be equal"
 	}
 	
 	@Test
@@ -274,14 +256,9 @@ class InjectorTest
 		
 		injector.injectInto(injectee);
 		
-		Assert.isTrue(Std.is(injectee.property1, Class1));
-		//'Property "property1" should be of type "Class1"'
-
-		Assert.isTrue(Std.is(injectee.property2, Class2));
-		//'Property "property2" should be of type "Class2"'
-
-		Assert.isFalse(injectee.property1 == injectee.property2);
-		//'Properties "property1" and "property2" should have received different singletons'
+		Assert.isTrue(Std.is(injectee.property1, Class1));//'Property "property1" should be of type "Class1"'
+		Assert.isTrue(Std.is(injectee.property2, Class2));//'Property "property2" should be of type "Class2"'
+		Assert.isFalse(injectee.property1 == injectee.property2);//'Properties "property1" and "property2" should have received different singletons'
 	}
 	
 	@Test
@@ -293,12 +270,10 @@ class InjectorTest
 		injector.mapClass(Class1, Class1);
 
 		injector.injectInto(injectee1);
-		Assert.isNotNull(injectee1.property);
-		//"Instance of Class should have been injected"
+		Assert.isNotNull(injectee1.property);//"Instance of Class should have been injected"
 		
 		injector.injectInto(injectee2);
-		Assert.isFalse(injectee1.property == injectee2.property);
-		//"Injected values should be different"
+		Assert.isFalse(injectee1.property == injectee2.property);//"Injected values should be different"
 	}
 	
 	@Test
@@ -310,12 +285,10 @@ class InjectorTest
 		injector.mapClass(Class1, Class1);
 		
 		injector.injectInto(injectee1);
-		Assert.isNotNull(injectee1.getDependency());
-		//"Instance of Class should have been injected"
+		Assert.isNotNull(injectee1.getDependency());//"Instance of Class should have been injected"
 
 		injector.injectInto(injectee2);
-		Assert.isFalse(injectee1.getDependency() == injectee2.getDependency());
-		//"Injected values should be different"
+		Assert.isFalse(injectee1.getDependency() == injectee2.getDependency());//"Injected values should be different"
 	}
 	
 	@Test
@@ -327,12 +300,10 @@ class InjectorTest
 		injector.mapClass(Class1, Class1, OneNamedParameterMethodInjectee.NAME);
 		
 		injector.injectInto(injectee1);
-		Assert.isNotNull(injectee1.getDependency());
-		//"Instance of Class should have been injected for named Class1 parameter"
+		Assert.isNotNull(injectee1.getDependency());//"Instance of Class should have been injected for named Class1 parameter"
 
 		injector.injectInto(injectee2);
-		Assert.isFalse(injectee1.getDependency() == injectee2.getDependency());
-		//"Injected values should be different"
+		Assert.isFalse(injectee1.getDependency() == injectee2.getDependency());//"Injected values should be different"
 	}
 	
 	@Test
@@ -345,17 +316,12 @@ class InjectorTest
 		injector.mapClass(Interface1, Class1);
 
 		injector.injectInto(injectee1);
-		Assert.isNotNull(injectee1.getDependency1());
-		//"Instance of Class should have been injected for unnamed Class1 parameter"
-		Assert.isNotNull(injectee1.getDependency2());
-		//"Instance of Class should have been injected for unnamed Interface parameter"
+		Assert.isNotNull(injectee1.getDependency1());//"Instance of Class should have been injected for unnamed Class1 parameter"
+		Assert.isNotNull(injectee1.getDependency2());//"Instance of Class should have been injected for unnamed Interface parameter"
 
 		injector.injectInto(injectee2);
-		Assert.isFalse(injectee1.getDependency1() == injectee2.getDependency1());
-		//"Injected values should be different"
-
-		Assert.isFalse(injectee1.getDependency2() == injectee2.getDependency2());
-		//"Injected values for Interface should be different"
+		Assert.isFalse(injectee1.getDependency1() == injectee2.getDependency1());//"Injected values should be different"
+		Assert.isFalse(injectee1.getDependency2() == injectee2.getDependency2());//"Injected values for Interface should be different"
 	}
 	
 	@Test
@@ -368,16 +334,12 @@ class InjectorTest
 		injector.mapClass(Interface1, Class1, TwoNamedParametersMethodInjectee.NAME2);
 
 		injector.injectInto(injectee1);
-		Assert.isNotNull(injectee1.getDependency1());
-		//"Instance of Class should have been injected for named Class1 parameter"
-		Assert.isNotNull(injectee1.getDependency2());
-		//"Instance of Class should have been injected for  for named Interface parameter"
+		Assert.isNotNull(injectee1.getDependency1());//"Instance of Class should have been injected for named Class1 parameter"
+		Assert.isNotNull(injectee1.getDependency2());//"Instance of Class should have been injected for  for named Interface parameter"
 
 		injector.injectInto(injectee2);
-		Assert.isFalse(injectee1.getDependency1() == injectee2.getDependency1());
-		//"Injected values should be different"
-		Assert.isFalse(injectee1.getDependency2() == injectee2.getDependency2());
-		//"Injected values for Interface should be different"
+		Assert.isFalse(injectee1.getDependency1() == injectee2.getDependency1());//"Injected values should be different"
+		Assert.isFalse(injectee1.getDependency2() == injectee2.getDependency2());//"Injected values for Interface should be different"
 	}
 	
 	@Test
@@ -391,20 +353,14 @@ class InjectorTest
 		injector.mapClass(Interface1, Class1, MixedParametersMethodInjectee.NAME2);
 		
 		injector.injectInto(injectee1);
-		Assert.isNotNull(injectee1.getDependency1());
-		//"Instance of Class should have been injected for named Class1 parameter"
-		Assert.isNotNull(injectee1.getDependency2());
-		//"Instance of Class should have been injected for unnamed Class1 parameter"
-		Assert.isNotNull(injectee1.getDependency3());
-		//"Instance of Class should have been injected for Interface"
+		Assert.isNotNull(injectee1.getDependency1());//"Instance of Class should have been injected for named Class1 parameter"
+		Assert.isNotNull(injectee1.getDependency2());//"Instance of Class should have been injected for unnamed Class1 parameter"
+		Assert.isNotNull(injectee1.getDependency3());//"Instance of Class should have been injected for Interface"
 
 		injector.injectInto(injectee2);
-		Assert.isFalse(injectee1.getDependency1() == injectee2.getDependency1());
-		//"Injected values for named Class1 should be different"
-		Assert.isFalse(injectee1.getDependency2() == injectee2.getDependency2());
-		//"Injected values for unnamed Class1 should be different"
-		Assert.isFalse(injectee1.getDependency3() == injectee2.getDependency3());
-		//"Injected values for named Interface should be different"
+		Assert.isFalse(injectee1.getDependency1() == injectee2.getDependency1());//"Injected values for named Class1 should be different"
+		Assert.isFalse(injectee1.getDependency2() == injectee2.getDependency2());//"Injected values for unnamed Class1 should be different"
+		Assert.isFalse(injectee1.getDependency3() == injectee2.getDependency3());//"Injected values for named Interface should be different"
 	}
 	
 	@Test
@@ -413,8 +369,7 @@ class InjectorTest
 		injector.mapClass(Class1, Class1);
 
 		var injectee = injector.instantiate(OneParameterConstructorInjectee);
-		Assert.isNotNull(injectee.getDependency());
-		//"Instance of Class should have been injected for Class1 parameter"
+		Assert.isNotNull(injectee.getDependency());//"Instance of Class should have been injected for Class1 parameter"
 	}
 	
 	@Test
@@ -425,11 +380,8 @@ class InjectorTest
 
 		var injectee = injector.instantiate(TwoParametersConstructorInjectee);
 
-		Assert.isNotNull(injectee.getDependency1());
-		//"Instance of Class should have been injected for named Class1 parameter"
-
-		Assert.areEqual(injectee.getDependency2(), "stringDependency");
-		//"The String 'stringDependency' should have been injected for String parameter"
+		Assert.isNotNull(injectee.getDependency1());//"Instance of Class should have been injected for named Class1 parameter"
+		Assert.areEqual(injectee.getDependency2(), "stringDependency");//"The String 'stringDependency' should have been injected for String parameter"
 	}
 	
 	@Test
@@ -437,8 +389,7 @@ class InjectorTest
 	{
 		injector.mapClass(Class1, Class1, OneNamedParameterConstructorInjectee.NAME);
 		var injectee = injector.instantiate(OneNamedParameterConstructorInjectee);
-		Assert.isNotNull(injectee.getDependency());
-		//"Instance of Class should have been injected for named Class1 parameter"
+		Assert.isNotNull(injectee.getDependency());//"Instance of Class should have been injected for named Class1 parameter"
 	}
 	
 	@Test
@@ -449,10 +400,8 @@ class InjectorTest
 		injector.mapValue(String, stringValue, TwoNamedParametersConstructorInjectee.NAME2);
 
 		var injectee = injector.instantiate(TwoNamedParametersConstructorInjectee);
-		Assert.isNotNull(injectee.getDependency1());
-		//"Instance of Class should have been injected for named Class1 parameter"
-		Assert.areEqual(injectee.getDependency2(), stringValue);
-		//"The String 'stringDependency' should have been injected for named String parameter"
+		Assert.isNotNull(injectee.getDependency1());//"Instance of Class should have been injected for named Class1 parameter"
+		Assert.areEqual(injectee.getDependency2(), stringValue);//"The String 'stringDependency' should have been injected for named String parameter"
 	}
 	
 	@Test
@@ -476,10 +425,8 @@ class InjectorTest
 		injector.mapValue(Array, array, NamedArrayInjectee.NAME);
 		var injectee = injector.instantiate(NamedArrayInjectee);
 
-		Assert.isNotNull(injectee.array);
-		//"Instance 'array' should have been injected for named Array parameter"
-		Assert.areEqual(array, injectee.array);
-		//"Instance field 'array' should be identical to local variable 'array'"
+		Assert.isNotNull(injectee.array);//"Instance 'array' should have been injected for named Array parameter"
+		Assert.areEqual(array, injectee.array);//"Instance field 'array' should be identical to local variable 'array'"
 	}
 	
 	@Test
@@ -489,8 +436,7 @@ class InjectorTest
 		injector.mapRule(Interface2, rule);
 
 		var injectee = injector.instantiate(MultipleSingletonsOfSameClassInjectee);
-		Assert.areEqual(injectee.property1, injectee.property2);
-		//"Instance field 'property1' should be identical to Instance field 'property2'"
+		Assert.areEqual(injectee.property1, injectee.property2);//"Instance field 'property1' should be identical to Instance field 'property2'"
 	}
 	
 	@Test
@@ -503,12 +449,9 @@ class InjectorTest
 		injector.mapRule(Interface2, rule, MultipleNamedSingletonsOfSameClassInjectee.NAME2);
 
 		var injectee = injector.instantiate(MultipleNamedSingletonsOfSameClassInjectee);
-		Assert.areEqual(injectee.property1, injectee.property2);
-		//"Instance field 'property1' should be identical to Instance field 'property2'"
-		Assert.areEqual(injectee.property1, injectee.namedProperty1);
-		//"Instance field 'property1' should be identical to Instance field 'namedProperty1'"
-		Assert.areEqual(injectee.property1, injectee.namedProperty2);
-		//"Instance field 'property1' should be identical to Instance field 'namedProperty2'"
+		Assert.areEqual(injectee.property1, injectee.property2);//"Instance field 'property1' should be identical to Instance field 'property2'"
+		Assert.areEqual(injectee.property1, injectee.namedProperty1);//"Instance field 'property1' should be identical to Instance field 'namedProperty1'"
+		Assert.areEqual(injectee.property1, injectee.namedProperty2);//"Instance field 'property1' should be identical to Instance field 'namedProperty2'"
 	}
 	
 	@Test
@@ -522,9 +465,9 @@ class InjectorTest
 		injector.injectInto(injectee);
 		Assert.isTrue(true); // need to assert something
 
-		//Assert.assertEquals("Instance field 'property1' should be identical to Instance field 'property2'", injectee.property1, injectee.property2);
-		//Assert.assertEquals("Instance field 'property1' should be identical to Instance field 'namedProperty1'", injectee.property1, injectee.namedProperty1);
-		//Assert.assertEquals("Instance field 'property1' should be identical to Instance field 'namedProperty2'", injectee.property1, injectee.namedProperty2);
+		//Assert.areEqual(injectee.property1, injectee.property2);//"Instance field 'property1' should be identical to Instance field 'property2'"
+		//Assert.areEqual(injectee.property1, injectee.namedProperty1);//"Instance field 'property1' should be identical to Instance field 'namedProperty1'"
+		//Assert.areEqual(injectee.property1, injectee.namedProperty2);//"Instance field 'property1' should be identical to Instance field 'namedProperty2'"
 	}
 	
 	@Test
@@ -536,8 +479,7 @@ class InjectorTest
 		injector.mapValue(Xml, value);
 		injector.injectInto(injectee);
 
-		Assert.areEqual(injectee.property, value);
-		//'injected value should be indentical to mapped value'
+		Assert.areEqual(injectee.property, value);//'injected value should be indentical to mapped value'
 	}
 	
 	@Test
@@ -613,8 +555,7 @@ class InjectorTest
 		injector.mapSingleton(Class1);
 
 		var injectee2 = injector.instantiate(ClassInjectee);
-		Assert.isFalse(injectee1.property == injectee2.property);
-		//'injectee1.property is not the same instance as injectee2.property'
+		Assert.isFalse(injectee1.property == injectee2.property);//'injectee1.property is not the same instance as injectee2.property'
 	}
 	
 	@Test

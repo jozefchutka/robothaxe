@@ -20,40 +20,12 @@ import robothaxe.core.IView;
  */
 class MediatorMap extends ViewMapBase, implements IMediatorMap
 {
-	/**
-	 * @private
-	 */
 	var mediatorByView:Dictionary<Dynamic, IMediator>;
-	
-	/**
-	 * @private
-	 */
 	var mappingConfigByView:Dictionary<Dynamic, MappingConfig>;
-	
-	/**
-	 * @private
-	 */
 	var mappingConfigByViewClassName:Dictionary<Dynamic, MappingConfig>;
-	
-	/**
-	 * @private
-	 */
 	var mediatorsMarkedForRemoval:Dictionary<Dynamic, Dynamic>;
-	
-	/**
-	 * @private
-	 */
 	var hasMediatorsMarkedForRemoval:Bool;
-	
-	/**
-	 * @private
-	 */
 	var reflector:IReflector;
-	
-	
-	//---------------------------------------------------------------------
-	//  Constructor
-	//---------------------------------------------------------------------
 	
 	/**
 	 * Creates a new <code>MediatorMap</code> object
@@ -82,7 +54,7 @@ class MediatorMap extends ViewMapBase, implements IMediatorMap
 	/**
 	 * @inheritDoc
 	 */
-	public function mapView(viewClassOrName:Dynamic, mediatorClass:Class<Dynamic>, ?injectViewAs:Dynamic = null, ?autoCreate:Bool = true, ?autoRemove:Bool = true):Void
+	public function mapView(viewClassOrName:Dynamic, mediatorClass:Class<Dynamic>, ?injectViewAs:Dynamic=null, ?autoCreate:Bool=true, ?autoRemove:Bool=true):Void
 	{
 		var viewClassName:String = reflector.getFQCN(viewClassOrName);
 		
@@ -185,8 +157,8 @@ class MediatorMap extends ViewMapBase, implements IMediatorMap
 		if (mediator != null)
 		{
 			var viewComponent:Dynamic = mediator.getViewComponent();
-			Reflect.deleteField(mediatorByView, viewComponent);
-			Reflect.deleteField(mappingConfigByView, viewComponent);
+			mediatorByView.remove(viewComponent);
+			mappingConfigByView.remove(viewComponent);
 			mediator.preRemove();
 			mediator.setViewComponent(null);
 			injector.unmap(reflector.getClass(mediator));
@@ -232,9 +204,9 @@ class MediatorMap extends ViewMapBase, implements IMediatorMap
 	 */
 	public function hasMediator(mediator:IMediator):Bool
 	{
-		for (med in mediatorByView)
+		for (key in mediatorByView)
 		{
-			if (med == mediator)
+			if (mediatorByView.get(key) == mediator)
 			{
 				return true;
 			}
@@ -243,13 +215,8 @@ class MediatorMap extends ViewMapBase, implements IMediatorMap
 		return false;
 	}
 	
-	//---------------------------------------------------------------------
-	//  Internal
-	//---------------------------------------------------------------------
-	
-	/**
-	 * @private
-	 */		
+	// helper
+		
 	override function addListeners():Void
 	{
 		if (contextView != null && enabled)
@@ -258,10 +225,7 @@ class MediatorMap extends ViewMapBase, implements IMediatorMap
 			contextView.viewRemoved = onViewRemoved;
 		}
 	}
-	
-	/**
-	 * @private
-	 */		
+		
 	override function removeListeners():Void
 	{
 		if (contextView != null)
@@ -271,9 +235,6 @@ class MediatorMap extends ViewMapBase, implements IMediatorMap
 		}
 	}
 	
-	/**
-	 * @private
-	 */		
 	override function onViewAdded(view:Dynamic):Void
 	{
 		if (mediatorsMarkedForRemoval.get(view) != null)
@@ -291,18 +252,12 @@ class MediatorMap extends ViewMapBase, implements IMediatorMap
 		}
 	}
 	
-	/**
-	 * @private
-	 */		
 	override function onViewRemoved(view:Dynamic):Void
 	{
 		trace("TODO");
 	}
 
-	/**
-	 * @private
-	 */		
-	function createMediatorUsing(viewComponent:Dynamic, ?viewClassName:String="", ?config:MappingConfig=null):IMediator
+	function createMediatorUsing(viewComponent:Dynamic, ?viewClassName:String=null, ?config:MappingConfig=null):IMediator
 	{
 		var mediator = mediatorByView.get(viewComponent);
 

@@ -40,6 +40,7 @@ class CommandTest implements ICommandTester
 		reflector = new Reflector();
 		commandMap = new CommandMap(eventDispatcher, injector, reflector);
 		injector.mapValue(ICommandTester, this);
+		commandExecuted = false;
 	}
 	
 	@After
@@ -48,7 +49,7 @@ class CommandTest implements ICommandTester
 		injector.unmap(ICommandTester);
 		resetCommandExecuted();
 	}
-	/*
+	
 	@Test
 	public function commandIsExecuted():Void
 	{
@@ -57,7 +58,7 @@ class CommandTest implements ICommandTester
 		eventDispatcher.dispatchEvent(new Event(TEST_EVENT));
 		Assert.isTrue(commandExecuted);//"Command should have executed"
 	}
-	*/
+	
 	public function markCommandExecuted():Void
 	{
 		commandExecuted = true;

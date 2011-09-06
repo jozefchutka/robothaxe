@@ -7,10 +7,9 @@
 
 package robothaxe.base;
 
+import massive.munit.Assert;
 import robothaxe.event.EventDispatcher;
 import robothaxe.event.IEventDispatcher;
-
-import massive.munit.Assert;
 import robothaxe.base.CommandMap;
 import robothaxe.base.support.ManualCommand;
 import robothaxe.core.ICommandMap;
@@ -36,6 +35,7 @@ class CommandMapTest implements ICommandTester
 	public function setup():Void
 	{
 		eventDispatcher = new EventDispatcher();
+		commandExecuted = false;
 		injector = new Injector();
 		reflector = new Reflector();
 		commandMap = new CommandMap(eventDispatcher, injector, reflector);
@@ -53,8 +53,7 @@ class CommandMapTest implements ICommandTester
 	public function noCommand():Void
 	{
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.STARTED));
-		Assert.isFalse(commandExecuted);
-		//'Command should not have reponded to event'
+		Assert.isFalse(commandExecuted);//'Command should not have reponded to event'
 	}
 	
 	@Test
@@ -62,8 +61,7 @@ class CommandMapTest implements ICommandTester
 	{
 		commandMap.mapEvent(CustomEvent.STARTED, EventCommand);
 		var hasCommand:Bool = commandMap.hasEventCommand(CustomEvent.STARTED, EventCommand);
-		Assert.isTrue(hasCommand);
-		//'Command Map should have Command'
+		Assert.isTrue(hasCommand);//'Command Map should have Command'
 	}
 	
 	@Test
@@ -71,8 +69,7 @@ class CommandMapTest implements ICommandTester
 	{
 		commandMap.mapEvent(CustomEvent.STARTED, EventCommand);
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.STARTED));
-		Assert.isTrue(commandExecuted);
-		//'Command should have reponded to event'
+		Assert.isTrue(commandExecuted);//'Command should have reponded to event'
 	}
 	
 	@Test
@@ -80,13 +77,11 @@ class CommandMapTest implements ICommandTester
 	{
 		commandMap.mapEvent(CustomEvent.STARTED, EventCommand);
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.STARTED));
-		Assert.isTrue(commandExecuted);
-		//'Command should have reponded to event'
+		Assert.isTrue(commandExecuted);//'Command should have reponded to event'
 
 		resetCommandExecuted();
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.STARTED));
-		Assert.isTrue(commandExecuted);
-		//'Command should have reponded to event again'
+		Assert.isTrue(commandExecuted);//'Command should have reponded to event again'
 	}
 	
 	@Test
@@ -94,13 +89,11 @@ class CommandMapTest implements ICommandTester
 	{
 		commandMap.mapEvent(CustomEvent.STARTED, EventCommand, null, true);
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.STARTED));
-		Assert.isTrue(commandExecuted);
-		//'Command should have reponded to event'
+		Assert.isTrue(commandExecuted);//'Command should have reponded to event'
 
 		resetCommandExecuted();
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.STARTED));
-		Assert.isFalse(commandExecuted);
-		//'Command should NOT have reponded to event'
+		Assert.isFalse(commandExecuted);//'Command should NOT have reponded to event'
 	}
 	
 	@Test
@@ -128,8 +121,7 @@ class CommandMapTest implements ICommandTester
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.EVENT1));
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.EVENT2));
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.EVENT3));
-		Assert.isFalse(commandExecuted);
-		//'Command should NOT have reponded to event'
+		Assert.isFalse(commandExecuted);//'Command should NOT have reponded to event'
 	}
 	
 	@Test

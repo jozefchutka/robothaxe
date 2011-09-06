@@ -35,6 +35,7 @@ class CommandMapWithEventClassTest implements ICommandTester
 	public function runBeforeEachTest():Void
 	{
 		eventDispatcher = new EventDispatcher();
+		commandExecuted = false;
 		injector = new Injector();
 		reflector = new Reflector();
 		commandMap = new CommandMap(eventDispatcher, injector, reflector);
@@ -53,8 +54,7 @@ class CommandMapWithEventClassTest implements ICommandTester
 	{
 		commandMap.mapEvent(CustomEvent.STARTED, CustomEventCommand, CustomEvent);
 		var hasCommand:Bool = commandMap.hasEventCommand(CustomEvent.STARTED, CustomEventCommand, CustomEvent);
-		Assert.isTrue(hasCommand);
-		//'Command Map should have Command'
+		Assert.isTrue(hasCommand);//'Command Map should have Command'
 	}
 	
 	@Test
@@ -62,8 +62,7 @@ class CommandMapWithEventClassTest implements ICommandTester
 	{
 		commandMap.mapEvent(CustomEvent.STARTED, CustomEventCommand, CustomEvent);
 		var hasCommand:Bool = commandMap.hasEventCommand(CustomEvent.STARTED, CustomEventCommand, Event);
-		Assert.isFalse(hasCommand);
-		//'Command Map should not have Command for wrong event class'
+		Assert.isFalse(hasCommand);//'Command Map should not have Command for wrong event class'
 	}
 	
 	@Test
@@ -71,10 +70,9 @@ class CommandMapWithEventClassTest implements ICommandTester
 	{
 		commandMap.mapEvent(CustomEvent.STARTED, CustomEventCommand, CustomEvent);
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.STARTED));
-		Assert.isTrue(commandExecuted);
-		//'Command should have reponded to event'
+		Assert.isTrue(commandExecuted);//'Command should have reponded to event'
 	}
-	/*
+	
 	@Test
 	public function dispatchingUnmappedEventClassShouldNotExecuteCommand():Void
 	{
@@ -82,7 +80,7 @@ class CommandMapWithEventClassTest implements ICommandTester
 		eventDispatcher.dispatchEvent(new Event(CustomEvent.STARTED));
 		Assert.isFalse(commandExecuted);//'Command should not have reponded to unmapped event'
 	}
-	*/
+	
 	@Test
 	public function normalCommandRepeated():Void
 	{
@@ -101,8 +99,7 @@ class CommandMapWithEventClassTest implements ICommandTester
 		commandMap.mapEvent(CustomEvent.STARTED, CustomEventCommand, CustomEvent, oneshot);
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.STARTED));
 		var hasCommand:Bool = commandMap.hasEventCommand(CustomEvent.STARTED, CustomEventCommand, CustomEvent);
-		Assert.isFalse(hasCommand);
-		//'Command Map should NOT have oneshot Command after first execution'
+		Assert.isFalse(hasCommand);//'Command Map should NOT have oneshot Command after first execution'
 	}
 	
 	@Test
@@ -111,12 +108,11 @@ class CommandMapWithEventClassTest implements ICommandTester
 		var oneshot:Bool = true;
 		commandMap.mapEvent(CustomEvent.STARTED, CustomEventCommand, CustomEvent, oneshot);
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.STARTED));
-		Assert.isTrue(commandExecuted);
-		//'Command should have reponded to event'
+		Assert.isTrue(commandExecuted);//'Command should have reponded to event'
+
 		resetCommandExecuted();
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.STARTED));
-		Assert.isFalse(commandExecuted);
-		//'Oneshot Command should NOT have reponded to event a second time'
+		Assert.isFalse(commandExecuted);//'Oneshot Command should NOT have reponded to event a second time'
 	}
 	
 	@Test
@@ -124,13 +120,12 @@ class CommandMapWithEventClassTest implements ICommandTester
 	{
 		commandMap.mapEvent(CustomEvent.STARTED, CustomEventCommand, CustomEvent);
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.STARTED));
-		Assert.isTrue(commandExecuted);
-		//'Command should have reponded to event'
+		Assert.isTrue(commandExecuted);//'Command should have reponded to event'
+
 		resetCommandExecuted();
 		commandMap.unmapEvent(CustomEvent.STARTED, CustomEventCommand, CustomEvent);
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.STARTED));
-		Assert.isFalse(commandExecuted);
-		//'Command should NOT have reponded to event'
+		Assert.isFalse(commandExecuted);//'Command should NOT have reponded to event'
 	}
 	
 	@Test
@@ -145,10 +140,9 @@ class CommandMapWithEventClassTest implements ICommandTester
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.EVENT1));
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.EVENT2));
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.EVENT3));
-		Assert.isFalse(commandExecuted);
-		//'Command should NOT have reponded to event'
+		Assert.isFalse(commandExecuted);//'Command should NOT have reponded to event'
 	}
-	/*
+	
 	@Test
 	public function mappingNonCommandClassShouldFail():Void
 	{
@@ -158,9 +152,9 @@ class CommandMapWithEventClassTest implements ICommandTester
 		{
 			commandMap.mapEvent(CustomEvent.STARTED, Dynamic, CustomEvent);
 		}
-		catch (e:ContextError)
+		catch (e:Dynamic)
 		{
-			passed = true;
+			passed = Std.is(e, ContextError);
 		}
 
 		Assert.isTrue(passed);
@@ -176,14 +170,14 @@ class CommandMapWithEventClassTest implements ICommandTester
 			commandMap.mapEvent(CustomEvent.STARTED, CustomEventCommand, CustomEvent);
 			commandMap.mapEvent(CustomEvent.STARTED, CustomEventCommand, CustomEvent);
 		}
-		catch (e:ContextError)
+		catch (e:Dynamic)
 		{
-			passed = true;
+			passed = Std.is(e, ContextError);
 		}
 
 		Assert.isTrue(passed);
 	}
-	*/
+	
 	public function markCommandExecuted():Void
 	{
 		commandExecuted = true;

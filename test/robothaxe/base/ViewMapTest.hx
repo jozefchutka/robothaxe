@@ -53,28 +53,28 @@ class ViewMapTest
 		viewMap = null;
 		injector = null;
 	}
-	/*
+	
 	@Test
 	public function mapType():Void
 	{
-		viewMap.mapType(TestComponent);
-		var mapped = viewMap.hasType(TestComponent);
+		viewMap.mapType(TestView);
+		var mapped = viewMap.hasType(TestView);
 		Assert.isTrue(mapped);//"Class should be mapped"
 	}
 	
 	@Test
 	public function unmapType():Void
 	{
-		viewMap.mapType(TestComponent);
-		viewMap.unmapType(TestComponent);
-		var mapped = viewMap.hasType(TestComponent);
+		viewMap.mapType(TestView);
+		viewMap.unmapType(TestView);
+		var mapped = viewMap.hasType(TestView);
 		Assert.isFalse(mapped);//"Class should NOT be mapped"
 	}
 	
 	@Test
 	public function mapTypeAndAddToDisplay():Void
 	{
-		viewMap.mapType(TestComponent);
+		viewMap.mapType(TestView);
 		contextView.addView(testView);
 		Assert.areEqual(INJECTION_STRING, testView.injectionPoint);//"Injection points should be satisfied"
 	}
@@ -82,8 +82,8 @@ class ViewMapTest
 	@Test
 	public function unmapTypeAndAddToDisplay():Void
 	{
-		viewMap.mapType(TestComponent);
-		viewMap.unmapType(TestComponent);
+		viewMap.mapType(TestView);
+		viewMap.unmapType(TestView);
 		contextView.addView(testView);
 		Assert.isNull(testView.injectionPoint);//"Injection points should NOT be satisfied after unmapping"
 	}
@@ -91,7 +91,7 @@ class ViewMapTest
 	@Test
 	public function mapTypeAndAddToDisplayTwice():Void
 	{
-		viewMap.mapType(TestComponent);
+		viewMap.mapType(TestView);
 		contextView.addView(testView);
 		testView.injectionPoint = null;
 		contextView.removeView(testView);
@@ -105,7 +105,7 @@ class ViewMapTest
 		viewMap.mapType(TestContextView);
 		Assert.areEqual(INJECTION_STRING, contextView.injectionPoint);//"Injection points in contextView should be satisfied"
 	}
-	*/
+	
 	@Test
 	public function mapTypeOfContextViewTwiceShouldInjectOnlyOnce():Void
 	{

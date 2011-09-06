@@ -9,10 +9,10 @@ package robothaxe.mvcs.support;
 
 import robothaxe.core.IView;
 
-class ViewComponent implements IView
+class ViewComponent
 {
 	public function new()
 	{
-		super();
+		
 	}
 }

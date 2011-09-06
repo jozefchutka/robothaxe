@@ -25,6 +25,7 @@ class ActorTest
 	var actor:TestActor;
 	var injector:IInjector;
 	var eventDispatcher:IEventDispatcher;
+	var dispatched:Bool;
 	
 	public function new(){}
 	
@@ -49,7 +50,7 @@ class ActorTest
 	{
 		Assert.isTrue(true);
 	}
-	/*
+	
 	@Test
 	public function hasEventDispatcher():Void
 	{
@@ -63,9 +64,7 @@ class ActorTest
 		actor.dispatchTestEvent();
 		Assert.isTrue(dispatched);
 	}
-	*/
-	var dispatched:Bool;
-
+	
 	function handleEventDispatch(event:Event):Void
 	{
 		dispatched = (event.type == TEST_EVENT);

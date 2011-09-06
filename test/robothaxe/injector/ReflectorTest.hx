@@ -39,32 +39,28 @@ class ReflectorTest
 	public function classExtendsClass():Void
 	{
 		var isClass = reflector.classExtendsOrImplements(Class1Extension, Class1);
-		Assert.isTrue(isClass);
-		//"Class1Extension should be an extension of Class1"
+		Assert.isTrue(isClass);//"Class1Extension should be an extension of Class1"
 	}
 	
 	@Test
 	public function classExtendsClassFromClassNameWithDotNotation():Void
 	{
 		var isClass = reflector.classExtendsOrImplements("robothaxe.injector.support.types.Class1Extension", Class1);
-		Assert.isTrue(isClass);
-		//"Class1Extension should be an extension of Class1"
+		Assert.isTrue(isClass);//"Class1Extension should be an extension of Class1"
 	}
 	
 	@Test
 	public function classImplementsInterface():Void
 	{
 		var isImplemented = reflector.classExtendsOrImplements(Class1, Interface1);
-		Assert.isTrue(isImplemented);
-		//"Class1 should implement Interface1"
+		Assert.isTrue(isImplemented);//"Class1 should implement Interface1"
 	}
 	
 	@Test
 	public function classImplementsInterfaceFromClassNameWithDotNotation():Void
 	{
 		var isImplemented = reflector.classExtendsOrImplements("robothaxe.injector.support.types.Class1", Interface1);
-		Assert.isTrue(isImplemented);
-		//"Class1 should implement Interface1"
+		Assert.isTrue(isImplemented);//"Class1 should implement Interface1"
 	}
 	
 	@Test

@@ -30,6 +30,8 @@ class EventMapTest
 	{
 		eventDispatcher = new EventDispatcher();
 		eventMap = new EventMap(eventDispatcher);
+		listenerExecutedCount = 0;
+		listenerExecuted = false;
 	}
 	
 	@After
@@ -43,8 +45,7 @@ class EventMapTest
 	public function noListener():Void
 	{
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.STARTED));
-		Assert.isFalse(listenerExecuted);
-		//'Listener should NOT have reponded to event'
+		Assert.isFalse(listenerExecuted);//'Listener should NOT have reponded to event'
 	}
 	
 	@Test
@@ -52,12 +53,10 @@ class EventMapTest
 	{
 		eventMap.mapListener(eventDispatcher, CustomEvent.STARTED, listener);
 		eventDispatcher.dispatchEvent(new Event(CustomEvent.STARTED));
-		Assert.isTrue(listenerExecuted);
-		//'Listener should have reponded to plain event'
+		Assert.isTrue(listenerExecuted);//'Listener should have reponded to plain event'
 		resetListenerExecuted();
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.STARTED));
-		Assert.isTrue(listenerExecuted);
-		//'Listener should have reponded to strong event'
+		Assert.isTrue(listenerExecuted);//'Listener should have reponded to strong event'
 	}
 	
 	@Test
@@ -65,25 +64,24 @@ class EventMapTest
 	{
 		eventMap.mapListener(eventDispatcher, CustomEvent.STARTED, listener, CustomEvent);
 		eventDispatcher.dispatchEvent(new Event(CustomEvent.STARTED));
-		Assert.isFalse(listenerExecuted);
-		//'Listener should NOT have reponded to plain event'
+		Assert.isFalse(listenerExecuted);//'Listener should NOT have reponded to plain event'
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.STARTED));
-		Assert.isTrue(listenerExecuted);
-		//'Listener should have reponded to strong event'
+		Assert.isTrue(listenerExecuted);//'Listener should have reponded to strong event'
 	}
-	/*
+	
 	@Test
-	public function mapListenerTwice():Void {
+	public function mapListenerTwice():Void
+	{
 		eventMap.mapListener(eventDispatcher, CustomEvent.STARTED, mapListenerTwiceListener, CustomEvent);
 		eventMap.mapListener(eventDispatcher, CustomEvent.STARTED, mapListenerTwiceListener, CustomEvent);
+
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.STARTED));
-		Assert.areEqual(1, listenerExecutedCount);
-		//'Listener should have only responded once'
+		Assert.areEqual(1, listenerExecutedCount);//'Listener should have only responded once'
+		
 		eventMap.unmapListener(eventDispatcher, CustomEvent.STARTED, mapListenerTwiceListener, CustomEvent);
 		resetListenerExecutedCount();
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.STARTED));
-		Assert.areEqual(0, listenerExecutedCount);
-		//'Listener should NOT have responded'
+		Assert.areEqual(0, listenerExecutedCount);//'Listener should NOT have responded'
 	}
 	
 	@Test
@@ -91,12 +89,12 @@ class EventMapTest
 	{
 		eventMap.mapListener(eventDispatcher, CustomEvent.STARTED, listener);
 		eventMap.unmapListener(eventDispatcher, CustomEvent.STARTED, listener);
+
 		eventDispatcher.dispatchEvent(new Event(CustomEvent.STARTED));
-		Assert.isFalse(listenerExecuted);
-		//'Listener should NOT have reponded to plain event'
+		Assert.isFalse(listenerExecuted);//'Listener should NOT have reponded to plain event'
+
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.STARTED));
-		Assert.isFalse(listenerExecuted);
-		//'Listener should NOT have reponded to strong event'
+		Assert.isFalse(listenerExecuted);//'Listener should NOT have reponded to strong event'
 	}
 	
 	@Test
@@ -109,8 +107,7 @@ class EventMapTest
 		// Dispatch Event of concrete type
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.STARTED));
 		// Should still respond
-		Assert.isTrue(listenerExecuted);
-		//'Listener should have reponded to strong event'
+		Assert.isTrue(listenerExecuted);//'Listener should have reponded to strong event'
 		// Reset
 		resetListenerExecuted();
 		// Unmap, but this time specifiy the Event Class
@@ -118,10 +115,9 @@ class EventMapTest
 		// Dispatch Event of concrete type
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.STARTED));
 		// Should no longer respond
-		Assert.isFalse(listenerExecuted);
-		//'Listener should NOT have reponded to strong event'
+		Assert.isFalse(listenerExecuted);//'Listener should NOT have reponded to strong event'
 	}
-	*/
+	
 	@Test
 	public function unmapListeners():Void
 	{
@@ -129,14 +125,13 @@ class EventMapTest
 		eventMap.mapListener(eventDispatcher, CustomEvent.STARTED, listener, CustomEvent);
 		eventMap.unmapListeners();
 		eventDispatcher.dispatchEvent(new Event(CustomEvent.STARTED));
-		Assert.isFalse(listenerExecuted);
-		//'Listener should NOT have reponded to plain event'
+		Assert.isFalse(listenerExecuted);//'Listener should NOT have reponded to plain event'
 		eventDispatcher.dispatchEvent(new CustomEvent(CustomEvent.STARTED));
-		Assert.isFalse(listenerExecuted);
-		//'Listener should NOT have reponded to strong event'
+		Assert.isFalse(listenerExecuted);//'Listener should NOT have reponded to strong event'
 	}
 	
-	// Helpers
+	// helper
+	
 	function listener(e:Event):Void
 	{
 		listenerExecuted = true;
