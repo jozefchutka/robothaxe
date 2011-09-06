@@ -7,11 +7,13 @@
 
 package robothaxe.base;
 
+import massive.munit.Assert;
+import massive.munit.async.AsyncFactory;
+
 import robothaxe.event.Event;
 import robothaxe.event.EventDispatcher;
 import robothaxe.event.IEventDispatcher;
 
-import massive.munit.Assert;
 import robothaxe.core.IEventMap;
 import robothaxe.core.IInjector;
 import robothaxe.injector.Injector;
@@ -21,7 +23,7 @@ import robothaxe.core.IMediatorMap;
 import robothaxe.core.IReflector;
 import robothaxe.core.IView;
 
-import robothaxe.mvcs.support.TestContextView;
+import robothaxe.base.support.TestContextView;
 import robothaxe.mvcs.support.TestContextViewMediator;
 import robothaxe.mvcs.support.ViewComponent;
 import robothaxe.mvcs.support.ViewComponentAdvanced;
@@ -183,68 +185,89 @@ class MediatorMapTest
 		contextView.addView(viewComponent);
 		Assert.isTrue(mediatorMap.hasMediatorForView(viewComponent));//'Mediator should have been created for View Component'
 	}
-	/*
-	[Test(async, timeout='500')]
-	public function mediatorIsKeptDuringReparenting():Void
+	
+	@Test
+	public function mediatorIsKeptDuringReparentingPreconditions():Void
 	{
-		var viewComponent:ViewComponent = new ViewComponent();
+		var viewComponent = new ViewComponent();
 		
 		mediatorMap.mapView(ViewComponent, ViewMediator, null, false, true);
-		contextView.addChild(viewComponent);
+		contextView.addView(viewComponent);
 		
-		var mediator:IMediator = mediatorMap.createMediator(viewComponent);
+		var mediator = mediatorMap.createMediator(viewComponent);
 		
 		Assert.isNotNull(mediator);//'Mediator should have been created'
 		Assert.isTrue(mediatorMap.hasMediator(mediator));//'Mediator should have been created'
 		Assert.isTrue(mediatorMap.hasMediatorForView(viewComponent));//'Mediator should have been created for View Component'
+	}
 
-		var container:UIComponent = new UIComponent();
-		contextView.addChild(container);
-		container.addChild(viewComponent);
+	@AsyncTest
+	public function mediatorIsKeptDuringReparenting(factory:AsyncFactory):Void
+	{
+		var viewComponent = new ViewComponent();
 		
-		Async.handleEvent(this, contextView, Event.ENTER_FRAME, delayFurther, 500, {dispatcher:contextView, method: verifyMediatorSurvival, view:viewComponent, mediator: mediator});
+		mediatorMap.mapView(ViewComponent, ViewMediator, null, false, true);
+		contextView.addView(viewComponent);
+		
+		var mediator = mediatorMap.createMediator(viewComponent);
+		
+		contextView.removeView(viewComponent);
+		contextView.addView(viewComponent);
+		
+		var data = {view:viewComponent, mediator: mediator};
+		var handler = factory.createHandler(this, callback(verifyMediatorSurvival, data), 300);
+		haxe.Timer.delay(handler, 200);
 	}
 	
-	function verifyMediatorSurvival(event:Event, data:Dynamic):Void
+	function verifyMediatorSurvival(data:Dynamic):Void
 	{
 		var viewComponent:ViewComponent = data.view;
 		var mediator:IMediator = data.mediator;
+
 		Assert.isTrue(mediatorMap.hasMediator(mediator));//"Mediator should exist"
 		Assert.isTrue(mediatorMap.hasMediatorForView(viewComponent));//"View Mediator should exist"
 	}
 	
-	[Test(async, timeout='500')]
-	public function mediatorIsRemovedWithView():Void
+	public function mediatorIsRemovedWithViewPreconditions():Void
 	{
 		var viewComponent:ViewComponent = new ViewComponent();
 		var mediator:IMediator;
 		
 		mediatorMap.mapView(ViewComponent, ViewMediator, null, false, true);
-		contextView.addChild(viewComponent);
+		contextView.addView(viewComponent);
 		mediator = mediatorMap.createMediator(viewComponent);
-		Assert.assertNotNull('Mediator should have been created', mediator);
-		Assert.isTrue('Mediator should have been created', mediatorMap.hasMediator(mediator));
-		Assert.isTrue('Mediator should have been created for View Component', mediatorMap.hasMediatorForView(viewComponent));
+
+		Assert.isNotNull(mediator);//'Mediator should have been created'
+		Assert.isTrue(mediatorMap.hasMediator(mediator));//'Mediator should have been created'
+		Assert.isTrue(mediatorMap.hasMediatorForView(viewComponent));//'Mediator should have been created for View Component'
+	}
+
+	@AsyncTest
+	public function mediatorIsRemovedWithView(factory:AsyncFactory):Void
+	{
+		var viewComponent:ViewComponent = new ViewComponent();
+		var mediator:IMediator;
 		
-		contextView.removeChild(viewComponent);
-		Async.handleEvent(this, contextView, Event.ENTER_FRAME, delayFurther, 500, {dispatcher: contextView, method: verifyMediatorRemoval, view: viewComponent, mediator: mediator});
+		mediatorMap.mapView(ViewComponent, ViewMediator, null, false, true);
+		contextView.addView(viewComponent);
+		mediator = mediatorMap.createMediator(viewComponent);
+		
+		contextView.removeView(viewComponent);
+		
+		var data = {view: viewComponent, mediator: mediator};
+		var handler = factory.createHandler(this, callback(verifyMediatorRemoval, data), 300);
+		haxe.Timer.delay(handler, 200);
 	}
 	
-	function verifyMediatorRemoval(event:Event, data:Dynamic):Void
+	function verifyMediatorRemoval(data:Dynamic):Void
 	{
 		var viewComponent:ViewComponent = data.view;
 		var mediator:IMediator = data.mediator;
-		Assert.isFalse("Mediator should not exist", mediatorMap.hasMediator(mediator));
-		Assert.isFalse("View Mediator should not exist", mediatorMap.hasMediatorForView(viewComponent));
+
+		Assert.isFalse(mediatorMap.hasMediator(mediator));//"Mediator should not exist"
+		Assert.isFalse(mediatorMap.hasMediatorForView(viewComponent));//"View Mediator should not exist"
 	}
 	
-	function delayFurther(event:Event, data:Dynamic):Void
-	{
-		Async.handleEvent(this, data.dispatcher, Event.ENTER_FRAME, data.method, 500, data);
-		delete data.dispatcher;
-		delete data.method;
-	}
-	*/
 	@Test
 	public function contextViewMediatorIsCreatedWhenMapped():Void
 	{

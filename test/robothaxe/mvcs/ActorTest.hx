@@ -12,7 +12,7 @@ import robothaxe.core.IInjector;
 import robothaxe.core.IView;
 import robothaxe.mvcs.support.TestActor;
 import robothaxe.mvcs.support.TestContext;
-import robothaxe.mvcs.support.TestContextView;
+import robothaxe.base.support.TestContextView;
 import massive.munit.Assert;
 import massive.munit.async.AsyncFactory;
 

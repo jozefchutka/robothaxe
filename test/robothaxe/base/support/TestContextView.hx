@@ -7,9 +7,12 @@
 package robothaxe.base.support;
 
 import robothaxe.core.IView;
+import robothaxe.util.Dictionary;
 
 class TestContextView implements IView
 {
+	var views:Dictionary<Dynamic, Bool>;
+
 	public var viewAdded:Dynamic -> Void;
 	public var viewRemoved:Dynamic -> Void;
 
@@ -18,10 +21,13 @@ class TestContextView implements IView
 	
 	public function new()
 	{
+		views = new Dictionary<Dynamic, Bool>();
 	}
 
 	public function addView(view:Dynamic)
 	{
+		views.add(view, true);
+
 		if (viewAdded != null)
 		{
 			viewAdded(view);
@@ -30,9 +36,16 @@ class TestContextView implements IView
 
 	public function removeView(view:Dynamic)
 	{
+		views.remove(view);
+
 		if (viewRemoved != null)
 		{
 			viewRemoved(view);
 		}
+	}
+
+	public function isAdded(view:Dynamic)
+	{
+		return (views.get(view) == true);
 	}
 }

@@ -7,11 +7,13 @@
 package robothaxe.mvcs;
 
 import massive.munit.Assert;
+import massive.munit.async.AsyncFactory;
+
 import robothaxe.event.Event;
 import robothaxe.core.IView;
 import robothaxe.base.ContextEvent;
 import robothaxe.mvcs.support.TestContext;
-import robothaxe.mvcs.support.TestContextView;
+import robothaxe.base.support.TestContextView;
 
 class ContextTest
 {
@@ -66,7 +68,7 @@ class ContextTest
 		Assert.isTrue(context.startupComplete);//"Context should now be started"
 	}
 	/*
-	[Test(async, timeout="3000")]
+	@AsyncTest
 	public function autoStartupWithViewComponentAfterAddedToStage():Void
 	{
 		contextView = new TestContextView();
@@ -77,7 +79,7 @@ class ContextTest
 		UIImpersonator.addChild(contextView);
 	}
 	
-	[Test(async, timeout="3000")]
+	@AsyncTest
 	public function autoStartupWithLateViewComponentAfterAddedToStage():Void
 	{
 		contextView = new TestContextView();
@@ -94,7 +96,7 @@ class ContextTest
 		Assert.isTrue("Context should be started", context.startupComplete);
 	}
 	
-	[Test(async, timeout="3000")]
+	@AsyncTest
 	public function manualStartupWithViewComponentAfterAddedToStage():Void
 	{
 		contextView = new TestContextView();

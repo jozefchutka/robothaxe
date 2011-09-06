@@ -7,8 +7,6 @@
 
 package robothaxe.mvcs.support;
 
-import robothaxe.core.IView;
-
 class ViewComponent
 {
 	public function new()

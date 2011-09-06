@@ -14,6 +14,7 @@ import robothaxe.core.IMediatorMap;
 import robothaxe.core.IReflector;
 import robothaxe.util.Dictionary;
 import robothaxe.core.IView;
+import haxe.Timer;
 
 /**
  * An abstract <code>IMediatorMap</code> implementation
@@ -45,6 +46,7 @@ class MediatorMap extends ViewMapBase, implements IMediatorMap
 		this.mappingConfigByView = new Dictionary();
 		this.mappingConfigByViewClassName = new Dictionary();
 		this.mediatorsMarkedForRemoval = new Dictionary();
+		this.hasMediatorsMarkedForRemoval = false;
 	}
 	
 	//---------------------------------------------------------------------
@@ -254,7 +256,33 @@ class MediatorMap extends ViewMapBase, implements IMediatorMap
 	
 	override function onViewRemoved(view:Dynamic):Void
 	{
-		trace("TODO");
+		var config = mappingConfigByView.get(view);
+
+		if (config != null && config.autoRemove)
+		{
+			mediatorsMarkedForRemoval.add(view, view);
+
+			if (!hasMediatorsMarkedForRemoval)
+			{
+				hasMediatorsMarkedForRemoval = true;
+				Timer.delay(removeMediatorLater, 60);
+			}
+		}
+	}
+
+	function removeMediatorLater():Void
+	{
+		for (view in mediatorsMarkedForRemoval)
+		{
+			if (!contextView.isAdded(view))
+			{
+				removeMediatorByView(view);
+			}
+			
+			mediatorsMarkedForRemoval.remove(view);
+		}
+
+		hasMediatorsMarkedForRemoval = false;
 	}
 
 	function createMediatorUsing(viewComponent:Dynamic, ?viewClassName:String=null, ?config:MappingConfig=null):IMediator
