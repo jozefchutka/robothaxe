@@ -9,14 +9,14 @@ package robothaxe.base;
 
 import robothaxe.event.Event;
 import robothaxe.core.IInjector;
-import robothaxe.core.IView;
+import robothaxe.core.IViewContainer;
 
 /**
  * A base ViewMap implementation
  */
 class ViewMapBase
 {
-	public var contextView(default, set_contextView):IView;
+	public var contextView(default, set_contextView):IViewContainer;
 	public var enabled(default, set_enabled):Bool;
 	
 	/**
@@ -44,7 +44,7 @@ class ViewMapBase
 	 * @param contextView The root view node of the context. The map will listen for ADDED_TO_STAGE events on this node
 	 * @param injector An <code>IInjector</code> to use for this context
 	 */
-	public function new(contextView:IView, injector:IInjector)
+	public function new(contextView:IViewContainer, injector:IInjector)
 	{
 		viewListenerCount = 0;
 		enabled = true;
@@ -65,7 +65,7 @@ class ViewMapBase
 	/**
 	 * @inheritDoc
 	 */
-	public function set_contextView(value:IView):IView
+	public function set_contextView(value:IViewContainer):IViewContainer
 	{
 		if (value != contextView)
 		{

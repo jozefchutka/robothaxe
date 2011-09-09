@@ -13,7 +13,7 @@ import robothaxe.core.IMediator;
 import robothaxe.core.IMediatorMap;
 import robothaxe.core.IReflector;
 import robothaxe.util.Dictionary;
-import robothaxe.core.IView;
+import robothaxe.core.IViewContainer;
 
 /**
  * An abstract <code>IMediatorMap</code> implementation
@@ -62,7 +62,7 @@ class MediatorMap extends ViewMapBase, implements IMediatorMap
 	 * @param injector An <code>IInjector</code> to use for this context
 	 * @param reflector An <code>IReflector</code> to use for this context
 	 */
-	public function new(contextView:IView, injector:IInjector, reflector:IReflector)
+	public function new(contextView:IViewContainer, injector:IInjector, reflector:IReflector)
 	{
 		super(contextView, injector);
 		

@@ -17,7 +17,7 @@ import robothaxe.core.IInjector;
 import robothaxe.core.IMediator;
 import robothaxe.core.IMediatorMap;
 import robothaxe.core.IReflector;
-import robothaxe.core.IView;
+import robothaxe.core.IViewContainer;
 /*
 import robothaxe.mvcs.support.TestContextView;
 import robothaxe.mvcs.support.TestContextViewMediator;
@@ -32,7 +32,7 @@ class MediatorMapTest
 	
 	public static var TEST_EVENT:String = 'testEvent';
 	
-	// var contextView:IView;
+	// var contextView:IViewContainer;
 	// var eventDispatcher:IEventDispatcher;
 	// var commandExecuted:Bool;
 	// var mediatorMap:MediatorMap;
@@ -49,7 +49,7 @@ class MediatorMapTest
 		// reflector = new SwiftSuspendersReflector();
 		// mediatorMap = new MediatorMap(contextView, injector, reflector);
 		
-		// injector.mapValue(IView, contextView);
+		// injector.mapValue(IViewContainer, contextView);
 		// injector.mapValue(IInjector, injector);
 		// injector.mapValue(IEventDispatcher, eventDispatcher);
 		// injector.mapValue(IMediatorMap, mediatorMap);

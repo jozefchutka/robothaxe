@@ -13,7 +13,7 @@ import robothaxe.base.EventMap;
 import robothaxe.base.MediatorBase;
 import robothaxe.core.IEventMap;
 import robothaxe.core.IMediatorMap;
-import robothaxe.core.IView;
+import robothaxe.core.IViewContainer;
 
 /**
  * Abstract MVCS <code>IMediator</code> implementation
@@ -24,7 +24,7 @@ class Mediator extends MediatorBase
 	public var eventDispatcher:IEventDispatcher;
 
 	@inject
-	public var contextView:IView;
+	public var contextView:IViewContainer;
 	
 	@inject
 	public var mediatorMap:IMediatorMap;

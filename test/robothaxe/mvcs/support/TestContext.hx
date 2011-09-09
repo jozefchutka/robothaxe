@@ -7,7 +7,7 @@
 package robothaxe.mvcs.support;
 
 import robothaxe.core.IInjector;
-import robothaxe.core.IView;
+import robothaxe.core.IViewContainer;
 import robothaxe.mvcs.Context;
 
 class TestContext extends Context
@@ -15,7 +15,7 @@ class TestContext extends Context
 	public var isInitialized(getIsInitialized, null):Bool;
 	public var startupComplete:Bool ;
 	
-	public function new(?contextView:IView=null, ?autoStartup:Bool=true)
+	public function new(?contextView:IViewContainer=null, ?autoStartup:Bool=true)
 	{
 		startupComplete = false;
 		super(contextView, autoStartup);

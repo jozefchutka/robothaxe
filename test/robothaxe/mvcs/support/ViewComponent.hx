@@ -7,9 +7,9 @@
 
 package robothaxe.mvcs.support;
 
-import robothaxe.core.IView;
+import robothaxe.core.IViewContainer;
 
-class ViewComponent implements IView
+class ViewComponent implements IViewContainer
 {
 	public function new()
 	{

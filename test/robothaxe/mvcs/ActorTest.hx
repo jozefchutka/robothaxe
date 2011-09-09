@@ -9,7 +9,7 @@ package robothaxe.mvcs;
 import robothaxe.event.Event;
 import robothaxe.event.IEventDispatcher;
 import robothaxe.core.IInjector;
-import robothaxe.core.IView;
+import robothaxe.core.IViewContainer;
 import robothaxe.mvcs.support.TestActor;
 import robothaxe.mvcs.support.TestContext;
 import robothaxe.mvcs.support.TestContextView;
@@ -21,7 +21,7 @@ class ActorTest
  	public static var TEST_EVENT = "testEvent";
 
 	var context:TestContext;
-	var contextView:IView;
+	var contextView:IViewContainer;
 	var actor:TestActor;
 	var injector:IInjector;
 	var eventDispatcher:IEventDispatcher;

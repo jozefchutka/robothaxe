@@ -6,9 +6,9 @@
 */
 package robothaxe.base.support;
 
-import robothaxe.core.IView;
+import robothaxe.core.IViewContainer;
 
-class TestContextView implements IView
+class TestContextView implements IViewContainer
 {
 	public var viewAdded:Dynamic -> Void;
 	public var viewRemoved:Dynamic -> Void;

@@ -12,7 +12,7 @@ import robothaxe.event.IEventDispatcher;
 import robothaxe.core.ICommandMap;
 import robothaxe.core.IInjector;
 import robothaxe.core.IMediatorMap;
-import robothaxe.core.IView;
+import robothaxe.core.IViewContainer;
 
 /**
  * Abstract MVCS command implementation
@@ -20,7 +20,7 @@ import robothaxe.core.IView;
 class Command
 {
 	@inject
-	public var contextView:IView;
+	public var contextView:IViewContainer;
 	
 	@inject
 	public var commandMap:ICommandMap;
