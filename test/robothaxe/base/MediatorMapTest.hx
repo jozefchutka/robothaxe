@@ -21,9 +21,8 @@ import robothaxe.injector.Reflector;
 import robothaxe.core.IMediator;
 import robothaxe.core.IMediatorMap;
 import robothaxe.core.IReflector;
-import robothaxe.core.IView;
-
-import robothaxe.base.support.TestContextView;
+import robothaxe.core.IViewContainer;
+import robothaxe.mvcs.support.TestContextView;
 import robothaxe.mvcs.support.TestContextViewMediator;
 import robothaxe.mvcs.support.ViewComponent;
 import robothaxe.mvcs.support.ViewComponentAdvanced;
@@ -53,7 +52,7 @@ class MediatorMapTest
 		reflector = new Reflector();
 		mediatorMap = new MediatorMap(contextView, injector, reflector);
 		
-		injector.mapValue(IView, contextView);
+		injector.mapValue(IViewContainer, contextView);
 		injector.mapValue(IInjector, injector);
 		injector.mapValue(IEventDispatcher, eventDispatcher);
 		injector.mapValue(IMediatorMap, mediatorMap);

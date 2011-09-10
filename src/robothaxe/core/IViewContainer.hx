@@ -1,6 +1,6 @@
 package robothaxe.core;
 
-interface IView
+interface IViewContainer
 {
 	var viewAdded:Dynamic -> Void;
 	var viewRemoved:Dynamic -> Void;

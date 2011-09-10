@@ -16,7 +16,7 @@ import robothaxe.base.support.TestContextView;
 import robothaxe.core.IInjector;
 import robothaxe.core.IReflector;
 import robothaxe.core.IViewMap;
-import robothaxe.core.IView;
+import robothaxe.core.IViewContainer;
 
 class ViewMapTest
  {
