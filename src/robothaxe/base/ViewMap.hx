@@ -54,7 +54,7 @@ class ViewMap extends ViewMapBase, implements IViewMap
 		// mappings - if you can do it with fewer dictionaries you get a prize
 		this.mappedPackages = new Array<Dynamic>();
 		this.mappedTypes = new Dictionary<Dynamic, Dynamic>();
-		this.injectedViews = new Dictionary<Dynamic, Dynamic>();
+		this.injectedViews = new Dictionary<Dynamic, Dynamic>(true);
 	}
 
 	//---------------------------------------------------------------------

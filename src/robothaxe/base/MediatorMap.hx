@@ -42,8 +42,8 @@ class MediatorMap extends ViewMapBase, implements IMediatorMap
 		this.reflector = reflector;
 		
 		// mappings - if you can do it with fewer dictionaries you get a prize
-		this.mediatorByView = new Dictionary();
-		this.mappingConfigByView = new Dictionary();
+		this.mediatorByView = new Dictionary(true);
+		this.mappingConfigByView = new Dictionary(true);
 		this.mappingConfigByViewClassName = new Dictionary();
 		this.mediatorsMarkedForRemoval = new Dictionary();
 		this.hasMediatorsMarkedForRemoval = false;

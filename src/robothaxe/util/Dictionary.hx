@@ -2,10 +2,48 @@ package robothaxe.util;
 
 class Dictionary<K, V>
 {
+	#if flash
+	var dictionary:flash.utils.TypedDictionary<K, V>;
+	var weakKeys:Bool;
+
+	public function new(?weakKeys:Bool=false)
+	{
+		this.weakKeys = weakKeys;
+		empty();
+	}
+
+	public function add(key:K, value:V):V
+	{
+		dictionary.set(key, value);
+		return value;
+	}
+
+	public function get(key:K)
+	{
+		return dictionary.get(key);
+	}
+
+	public function remove(key:K)
+	{
+		dictionary.delete(key);
+	}
+
+	public function empty()
+	{
+		dictionary = new flash.utils.TypedDictionary<K, V>(weakKeys);
+	}
+
+	public function iterator()
+    {
+        return dictionary.iterator();
+    }
+
+	#else
+
 	var keys:Array<K>;
 	var values:Array<V>;
 
-	public function new()
+	public function new(?weakKeys:Bool=false)
 	{
 		keys = [];
 		values = [];
@@ -67,4 +105,5 @@ class Dictionary<K, V>
     {
         return keys.iterator();
     }
+	#end
 }
