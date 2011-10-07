@@ -143,7 +143,6 @@ class MediatorMap extends ViewMapBase, implements IMediatorMap
 	 */
 	public function registerMediator(viewComponent:Dynamic, mediator:IMediator):Void
 	{
-		injector.mapValue(reflector.getClass(mediator), mediator);
 		mediatorByView.add(viewComponent, mediator);
 		var mapping = mappingConfigByViewClassName.get(Type.getClassName(Type.getClass(viewComponent)));
 		mappingConfigByView.add(viewComponent, mapping);
@@ -163,8 +162,8 @@ class MediatorMap extends ViewMapBase, implements IMediatorMap
 			mappingConfigByView.remove(viewComponent);
 			mediator.preRemove();
 			mediator.setViewComponent(null);
-			injector.unmap(reflector.getClass(mediator));
 		}
+		
 		return mediator;
 	}
 	
