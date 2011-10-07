@@ -56,7 +56,7 @@ class InjectionConfig
 	{
 		if (this.result != null && result != null)
 		{
-			trace('Warning: Injector already has a rule for type "' + Type.getClassName(request) + '", named "' + injectionName + '".\nIf you have overwritten this mapping intentionally you can use "injector.unmap()" prior to your replacement mapping in order to avoid seeing this message.');
+			//trace('Warning: Injector already has a rule for type "' + Type.getClassName(request) + '", named "' + injectionName + '".\nIf you have overwritten this mapping intentionally you can use "injector.unmap()" prior to your replacement mapping in order to avoid seeing this message.');
 		}
 
 		this.result = result;
