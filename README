@@ -2,8 +2,6 @@ To run the unit test suite in JS and AVM2 run the following from the command lin
 
 % haxe test.hxml
 
-View mediation has been extracted into an interface: robothaxe.core.IView. ViewMaps add callbacks for viewAdded and viewRemoved, which in Flash would map to ADDED_TO_STAGE and REMOVED_FROM_STAGE, and in JS could potentially use DOM mutation events. I'll make a simple cross platform proof of concept soon.
+View mediation has been extracted into an interface: robothaxe.core.IViewContainer. ViewMaps add callbacks for viewAdded and viewRemoved, which in Flash would map to ADDED_TO_STAGE and REMOVED_FROM_STAGE, and in JS could potentially use DOM mutation events. I'll make a simple cross platform proof of concept soon.
 
-Some tests have been commented out, I'm still working my way through them :)
-
-Stay tuned!
+All tests are passing under AVM2/JS :)
