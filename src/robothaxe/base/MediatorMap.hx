@@ -259,6 +259,10 @@ class MediatorMap extends ViewMapBase, implements IMediatorMap
 
 		if (config != null && config.autoRemove)
 		{
+			// don't delay until isAdded works correctly
+			removeMediatorByView(view);
+
+			/*
 			mediatorsMarkedForRemoval.add(view, view);
 
 			if (!hasMediatorsMarkedForRemoval)
@@ -266,6 +270,7 @@ class MediatorMap extends ViewMapBase, implements IMediatorMap
 				hasMediatorsMarkedForRemoval = true;
 				Timer.delay(removeMediatorLater, 60);
 			}
+			*/
 		}
 	}
 
