@@ -16,8 +16,8 @@ class Build extends BuildBase
 		haxelib.url = "https://github.com/DavidPeek/robothaxe";
 		haxelib.username = "massive";
 		haxelib.description = "RobotHaxe is a port of the AS3 RobotLegs framework.";
-		haxelib.version.set("1.0.0");
-		haxelib.version.description = "First release.";
+		haxelib.version.set("1.0.1");
+		haxelib.version.description = "Minor change: don't delay mediator release.";
 		haxelib.tag.add("cross");
 		haxelib.file.add("src");
 		haxelib.file.add("LICENSE");

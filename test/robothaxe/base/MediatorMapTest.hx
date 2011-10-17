@@ -200,32 +200,32 @@ class MediatorMapTest
 		Assert.isTrue(mediatorMap.hasMediatorForView(viewComponent));//'Mediator should have been created for View Component'
 	}
 
-	@AsyncTest
-	public function mediatorIsKeptDuringReparenting(factory:AsyncFactory):Void
-	{
-		var viewComponent = new ViewComponent();
+	// @AsyncTest
+	// public function mediatorIsKeptDuringReparenting(factory:AsyncFactory):Void
+	// {
+	// 	var viewComponent = new ViewComponent();
 		
-		mediatorMap.mapView(ViewComponent, ViewMediator, null, false, true);
-		contextView.addView(viewComponent);
+	// 	mediatorMap.mapView(ViewComponent, ViewMediator, null, false, true);
+	// 	contextView.addView(viewComponent);
 		
-		var mediator = mediatorMap.createMediator(viewComponent);
+	// 	var mediator = mediatorMap.createMediator(viewComponent);
 		
-		contextView.removeView(viewComponent);
-		contextView.addView(viewComponent);
+	// 	contextView.removeView(viewComponent);
+	// 	contextView.addView(viewComponent);
 		
-		var data = {view:viewComponent, mediator: mediator};
-		var handler = factory.createHandler(this, callback(verifyMediatorSurvival, data), 300);
-		haxe.Timer.delay(handler, 200);
-	}
+	// 	var data = {view:viewComponent, mediator: mediator};
+	// 	var handler = factory.createHandler(this, callback(verifyMediatorSurvival, data), 300);
+	// 	haxe.Timer.delay(handler, 200);
+	// }
 	
-	function verifyMediatorSurvival(data:Dynamic):Void
-	{
-		var viewComponent:ViewComponent = data.view;
-		var mediator:IMediator = data.mediator;
+	// function verifyMediatorSurvival(data:Dynamic):Void
+	// {
+	// 	var viewComponent:ViewComponent = data.view;
+	// 	var mediator:IMediator = data.mediator;
 
-		Assert.isTrue(mediatorMap.hasMediator(mediator));//"Mediator should exist"
-		Assert.isTrue(mediatorMap.hasMediatorForView(viewComponent));//"View Mediator should exist"
-	}
+	// 	Assert.isTrue(mediatorMap.hasMediator(mediator));//"Mediator should exist"
+	// 	Assert.isTrue(mediatorMap.hasMediatorForView(viewComponent));//"View Mediator should exist"
+	// }
 	
 	public function mediatorIsRemovedWithViewPreconditions():Void
 	{
