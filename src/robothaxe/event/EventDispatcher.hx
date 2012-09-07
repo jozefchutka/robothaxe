@@ -62,7 +62,7 @@ class EventDispatcher implements IEventDispatcher
 		mEventMap = new EventMap();
 	}
 
-	public function addEventListener(type:String, inListener:Dynamic->Void, ?useCapture:Bool=false, ?inPriority:Int=0, ?useWeakReference:Bool=false):Void
+	public function addEventListener(type:String, inListener:Dynamic->Void, useCapture:Bool=false, inPriority:Int=0, useWeakReference:Bool=false):Void
 	{
 		var list = mEventMap.get(type);
 		if (list==null)
@@ -124,12 +124,12 @@ class EventDispatcher implements IEventDispatcher
 		return mEventMap.exists(type);
 	}
 
-	public function removeEventListener(type:String, listener:Dynamic->Void, ?inCapture:Bool):Void
+	public function removeEventListener(type:String, listener:Dynamic->Void, inCapture:Bool=false):Void
 	{
 		if (!mEventMap.exists(type)) return;
 
 		var list = mEventMap.get(type);
-		var capture:Bool = inCapture==null ? false : inCapture;
+		var capture:Bool = inCapture;
 		
 		for(i in 0...list.length)
 		{

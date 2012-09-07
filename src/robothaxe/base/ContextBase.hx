@@ -44,7 +44,7 @@ class ContextBase implements IContext, implements IEventDispatcher
 	/**
 	 * @private
 	 */
-	public function addEventListener(type:String, listener:Dynamic -> Void, ?useCapture:Bool = false, ?priority:Int = 0, ?useWeakReference:Bool = false):Void
+	public function addEventListener(type:String, listener:Dynamic -> Void, useCapture:Bool = false, priority:Int = 0, useWeakReference:Bool = false):Void
 	{
 		eventDispatcher.addEventListener(type, listener, useCapture, priority);
 	}
@@ -70,7 +70,7 @@ class ContextBase implements IContext, implements IEventDispatcher
 	/**
 	 * @private
 	 */
-	public function removeEventListener(type:String, listener:Dynamic -> Void, ?useCapture:Bool = false):Void
+	public function removeEventListener(type:String, listener:Dynamic -> Void, useCapture:Bool = false):Void
 	{
 		eventDispatcher.removeEventListener(type, listener, useCapture);
 	}
